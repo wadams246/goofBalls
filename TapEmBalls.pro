@@ -9,8 +9,8 @@ DEPLOYMENTFOLDERS += assetsFolder
 
 # Add more folders to ship with the application here
 
-RESOURCES += \ #    resources.qrc # uncomment for publishing
-    resources.qrc
+
+RESOURCES += resources.qrc # uncomment for publishing
 
 # NOTE: for PUBLISHING, perform the following steps:
 # 1. comment the DEPLOYMENTFOLDERS += qmlFolder line above, to avoid shipping your qml files with the application (instead they get compiled to the app binary)
@@ -77,10 +77,8 @@ DISTFILES += \
     win/app_icon.ico \
     android/build.gradle \
     win/app_icon.rc \
-    qml/common/LevelBase.qml \
     qml/common/MenuButton.qml \
     qml/common/SceneBase.qml \
-    qml/levels/Level1.qml \
     qml/scenes/ConfirmScene.qml \
     qml/scenes/CreditsScene.qml \
     qml/scenes/GameScene.qml \
@@ -88,4 +86,47 @@ DISTFILES += \
     qml/scenes/OptionsScene.qml \
     qml/scenes/ScoresScene.qml \
     qml/scenes/SubMenuScene.qml \
-    qml/Main.qml
+    qml/Main.qml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    qml/common/Ball.qml \
+    qml/common/Bar.qml \
+    qml/common/LevelBase.qml \
+    qml/entities/Balls/BigBall.qml \
+    qml/entities/Balls/BlueBall.qml \
+    qml/entities/Balls/GreenBall.qml \
+    qml/entities/Balls/HealBall.qml \
+    qml/entities/Balls/HealerBall.qml \
+    qml/entities/Balls/RedBall.qml \
+    qml/entities/Balls/ShieldBall.qml \
+    qml/entities/Balls/ShielderBall.qml \
+    qml/entities/Balls/SpeedBall.qml \
+    qml/entities/Balls/SplitBall.qml \
+    qml/entities/Balls/SplitBall2.qml \
+    qml/entities/Balls/SplitBall3.qml \
+    qml/entities/Balls/SplitBuffBall.qml \
+    qml/entities/Balls/SplitHealBall.qml \
+    qml/entities/Balls/SplitHealerBall.qml \
+    qml/entities/Balls/SplitShieldBall.qml \
+    qml/entities/Balls/SplitShielderBall.qml \
+    qml/entities/BallCollector.qml \
+    qml/entities/BallGenerator.qml \
+    qml/entities/Ceiling.qml \
+    qml/entities/FloatingPowerUpText.qml \
+    qml/entities/FloatingText.qml \
+    qml/entities/HealBolt.qml \
+    qml/entities/HealBolt2.qml \
+    qml/entities/Player.qml \
+    qml/entities/PowerUp.qml \
+    qml/entities/ShieldBolt.qml \
+    qml/entities/Wall.qml \
+    qml/hud/HpBar.qml \
+    qml/hud/Hud.qml \
+    qml/hud/StatsBar.qml \
+    qml/hud/XpBar.qml \
+    qml/levels/Level1.qml \
+    qml/scenes/GameOverScene.qml
+

@@ -14,5 +14,5 @@ Ball {
     baseDmgPoints: 25
     gScale: 1
     lScale: .5
-    ballPic: "redBall"
+    ballPic: "lightRedBall"
 }

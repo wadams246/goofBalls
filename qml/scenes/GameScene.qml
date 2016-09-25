@@ -32,7 +32,8 @@ SceneBase {
 
     // back button to leave scene
     MenuButton {
-        text: " "
+        width: 20
+        height: 20
         // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
         anchors.right: gameScene.gameWindowAnchorItem.right
         anchors.rightMargin: 10
@@ -42,22 +43,13 @@ SceneBase {
     }
 
     Text {
-        anchors.right: gameScene.gameWindowAnchorItem.right
-        anchors.rightMargin: 2
+        anchors.left: gameScene.gameWindowAnchorItem.left
+        anchors.leftMargin: 2
         anchors.top: gameScene.gameWindowAnchorItem.top
         anchors.topMargin: 2
-        color: "black"
+        color: "white"
         font.pixelSize: 20
         text: "Score: " + player.score
-    }
-
-    Text {
-        anchors.top: gameScene.gameWindowAnchorItem.top
-        anchors.topMargin: 20
-        anchors.right: gameScene.gameWindowAnchorItem.right
-        anchors.rightMargin: 5
-        color: "black"
-        text: "interval " + ballGenInterval
     }
 
     Text {
@@ -101,6 +93,15 @@ SceneBase {
                 levelText.opacity = 1;
                 fadeLevelText.start();
                 entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/GreenBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/BlueBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/RedBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/SpeedBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/HealBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/HealerBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/ShieldBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/ShielderBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/SplitBall.qml"));
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/SplitBuffBall.qml"));
 //                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/PowerUp.qml"));
             }
         }

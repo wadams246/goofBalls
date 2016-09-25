@@ -14,7 +14,7 @@ Ball {
     baseDmgPoints: 65
     gScale: 1
     lScale: 0
-    ballPic: "lightBlueBall"
+    ballPic: "orangeBall"
     cat: Circle.Category4
 
     property int haste: Math.floor(((player.level - 8) / 2));

@@ -17,7 +17,7 @@ Ball {
     baseDmgPoints: 15
     gScale: 1
     lScale: 0
-    ballPic: "orangeBall"
+    ballPic: "aquaBall"
     cat: Circle.Category1
 
 //    property int coolDownTime: 7 - haste > 2 ? haste : 3;

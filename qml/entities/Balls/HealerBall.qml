@@ -14,7 +14,7 @@ Ball {
     baseDmgPoints: 25
     gScale: 1
     lScale: 0
-    ballPic: "whiteBall"
+    ballPic: "magentaBall"
     cat: Circle.Category4
 
     property int coolDownTime: 2

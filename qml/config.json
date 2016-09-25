@@ -1,8 +1,8 @@
 {
-    "title": "TapEmBalls",
-    "identifier": "com.yourcompany.wizardMSML.TapEmBalls",
+    "title": "GoofBalls",
+    "identifier": "com.poopnplay.goofballs",
     "orientation": "portrait",
-    "versioncode": 1,
-    "versionname": "1.0",
+    "versioncode": 2,
+    "versionname": "2.0",
     "stage": "test"
 }
