@@ -14,5 +14,5 @@ Ball {
     baseDmgPoints: 10
     gScale: 2
     lScale: 0
-    ballPic: "greenBall"
+    ballPic: "greenBall2"
 }

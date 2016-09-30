@@ -18,7 +18,7 @@ Ball {
     gScale: .08
     spriteWidth: 100
     spriteHeight: 100
-    ballPic: "darkRedBall"
+    ballPic: "purpleBall"
 
     BoxCollider {
         collidesWith: Box.Category2

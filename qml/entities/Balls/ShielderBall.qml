@@ -1,5 +1,6 @@
 import VPlay 2.0
 import QtQuick 2.0
+import "../"
 import "../../common"
 
 Ball {
@@ -14,7 +15,7 @@ Ball {
     baseDmgPoints: 20
     gScale: 1
     lScale: 0
-    ballPic: "purpleBall"
+    ballPic: "lightBlueBall"
     cat: Circle.Category5
 
     property int haste: Math.floor(((player.level - 8) / 2));
@@ -36,8 +37,9 @@ Ball {
             if(!coolDown && collidedEntity.entityType === "ball") {
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../ShieldBolt.qml"), {"ball": shielderBall, "entity": collidedEntity});
                 collidedEntity.shield(shieldPower);
-                resetCD();
-
+                coolDown = true;
+                coolDownTime = 5
+                coolDownBar.resetCD();
             }
         }
     }
@@ -54,39 +56,15 @@ Ball {
 
     }
 
-    Rectangle {
-        id: cdBack
-        anchors.bottom: parent.top
+    CoolDownBar {
+        id: coolDownBar
+        absoluteX: 0
+        absoluteY: -coolDownBar.height
+        width: shielderBall.width
         height: 5
-        width: spriteWidth
-        color: "black"
-        opacity: 1
-        radius: 1
+        coolDownTime: coolDownTime
+        visible: true
     }
-
-    Rectangle {
-        id: cdBar
-        anchors.bottom: parent.top
-        height: 5
-        width: spriteWidth
-        color: "#0099ff"
-        opacity: 1
-        radius: 1
-
-        NumberAnimation on width {
-            id: cdAnimation
-            to: 0
-            duration: coolDownTime * 1000
-            onStopped: cdBar.opacity = cdBack.opacity = 0
-        }
-    }
-
-//    Text {
-//        anchors.centerIn: parent
-//        font.pixelSize: 8
-//        color: "black"
-//        text: coolDownTime
-//    }
 
     Timer {
         interval: 1000
@@ -98,15 +76,6 @@ Ball {
                 coolDown = false
             }
         }
-    }
-
-    function resetCD() {
-        cdBack.opacity = cdBar.opacity = 1;
-        cdBar.width = spriteWidth;
-        coolDownTime = 5;
-        coolDown = true;
-        cdAnimation.stop();
-        cdAnimation.start();
     }
 }
 

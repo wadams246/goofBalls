@@ -14,7 +14,7 @@ Ball {
     baseDmgPoints: 25
     gScale: 1
     lScale: 0
-    ballPic: "magentaBall"
+    ballPic: "whiteBall"
     cat: Circle.Category4
 
     property int coolDownTime: 2
@@ -35,8 +35,9 @@ Ball {
             if(!coolDown && collidedEntity.entityType === "ball") {
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../HealBolt.qml"), {"ball": healerBall, "entity": collidedEntity});
                 collidedEntity.heal(healPower);
-                resetCD();
-
+                coolDown = true;
+                coolDownTime = 5
+                coolDownBar.resetCD();
             }
         }
     }
@@ -53,39 +54,15 @@ Ball {
 
     }
 
-    Rectangle {
-        id: cdBack
-        anchors.bottom: parent.top
+    CoolDownBar {
+        id: coolDownBar
+        absoluteX: 0
+        absoluteY: -coolDownBar.height
+        width: healerBall.width
         height: 5
-        width: spriteWidth
-        color: "black"
-        opacity: 1
-        radius: 1
+        coolDownTime: coolDownTime
+        visible: true
     }
-
-    Rectangle {
-        id: cdBar
-        anchors.bottom: parent.top
-        height: 5
-        width: spriteWidth
-        color: "#0099ff"
-        opacity: 1
-        radius: 1
-
-        NumberAnimation on width {
-            id: cdAnimation
-            to: 0
-            duration: coolDownTime * 1000
-            onStopped: cdBar.opacity = cdBack.opacity = 0
-        }
-    }
-
-//    Text {
-//        anchors.centerIn: parent
-//        font.pixelSize: 8
-//        color: "black"
-//        text: coolDownTime
-//    }
 
     Timer {
         interval: 1000
@@ -97,15 +74,6 @@ Ball {
                 coolDown = false
             }
         }
-    }
-
-    function resetCD() {
-        cdBack.opacity = cdBar.opacity = 1;
-        cdBar.width = spriteWidth;
-        coolDownTime = 5;
-        coolDown = true;
-        cdAnimation.stop();
-        cdAnimation.start();
     }
 }
 

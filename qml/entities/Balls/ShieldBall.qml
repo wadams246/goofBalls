@@ -17,7 +17,7 @@ Ball {
     baseDmgPoints: 15
     gScale: 1
     lScale: 0
-    ballPic: "aquaBall"
+    ballPic: "orangeBall"
     cat: Circle.Category1
 
 //    property int coolDownTime: 7 - haste > 2 ? haste : 3;
@@ -27,38 +27,14 @@ Ball {
     property int shieldPower: 50 + Math.ceil((player.level / 25) * 50);
     property bool coolDown: true;
 
-    Rectangle {
-        id: cdBack
-        anchors.bottom: parent.top
+    CoolDownBar {
+        id: coolDownBar
+        absoluteX: 0
+        absoluteY: -coolDownBar.height
+        width: shieldBall.width
         height: 5
-        width: spriteWidth
-        color: "black"
-        opacity: 1
-        radius: 1
-    }
-
-    Rectangle {
-        id: cdBar
-        anchors.bottom: parent.top
-        height: 5
-        width: spriteWidth
-        color: "#0099ff"
-        opacity: 1
-        radius: 1
-
-        NumberAnimation on width {
-            id: cdAnimation
-            to: 0
-            duration: coolDownTime * 1000
-            onStopped: cdBar.opacity = cdBack.opacity = 0
-        }
-    }
-
-    Text {
-        anchors.centerIn: parent
-        font.pixelSize: 8
-        color: "black"
-        text: "Shield"
+        coolDownTime: coolDownTime
+        visible: true
     }
 
     Timer {
@@ -70,19 +46,11 @@ Ball {
             if(coolDownTime === 0) {
                 coolDown = false;
                 shieldBall.shield(shieldPower);
-                resetCD();
+                coolDown = true;
+                coolDownTime = 5;
+                coolDownBar.resetCD();
             }
         }
-    }
-
-    function resetCD() {
-        coolDown = true;
-        coolDownTime = 5;
-        cdBack.opacity = cdBar.opacity = 1;
-        cdBar.width = spriteWidth;
-        cdAnimation.stop();
-        cdAnimation.start();
-
     }
 }
 

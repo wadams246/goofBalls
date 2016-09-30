@@ -127,6 +127,5 @@ DISTFILES += \
     qml/hud/Hud.qml \
     qml/hud/StatsBar.qml \
     qml/hud/XpBar.qml \
-    qml/levels/Level1.qml \
     qml/scenes/GameOverScene.qml
 

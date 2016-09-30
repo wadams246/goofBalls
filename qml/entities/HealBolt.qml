@@ -14,19 +14,41 @@ EntityBase {
     property variant ball: "ball"
     property variant entity: "entity"
 
-    LineItem {
-        color: "#08dc05"
-        lineWidth: 3
-        points: [
-            {"x": ball !== null ? ball.x + ball.width / 2 : 0, "y": ball !== null ? ball.y + ball.height / 2 : 0},
-            {"x": entity !== null ? entity.x + entity.width / 2 : 0, "y": entity !== null ? entity.y + entity.height / 2 : 0}
-        ]
+    property point ballCenter: mapFromItem(ball, ball.width * 0.5, ball.height * 0.5)
+    property point entityCenter: mapFromItem(entity, entity.width * 0.5, entity.height * 0.5)
+
+
+    Item {
+        id: nonRotatedItem
+
+        LineItem {
+            color: "#08dc05"
+            lineWidth: 3
+            points: [
+                {"x": ball !== null ? ballCenter.x : 0, "y": ball !== null ? ballCenter.y : 0},
+                {"x": entity !== null ? entityCenter.x : 0, "y": entity !== null ? entityCenter.y : 0}
+//                {"x": ball !== null ? ball.x + ball.width / 2 : 0, "y": ball !== null ? ball.y + ball.height / 2 : 0},
+//                {"x": entity !== null ? entity.x + entity.width / 2 : 0, "y": entity !== null ? entity.y + entity.height / 2 : 0}
+            ]
+        }
+
+        NumberAnimation on opacity {
+            to: 0
+            duration: 700
+            onStopped: removeEntity()
+            running: entity !== null && ball !== null
+
+        }
     }
 
-    NumberAnimation on opacity {
-        to: 0
-        duration: 700
-        onStopped: removeEntity()
-        running: entity !== null && ball !== null
+    // This may not be the best way to stop the healbolts from rotating.
+    // I'm not sure how this is going to effect performance
+    Timer {
+        interval: 1
+        running: nonRotatedItem.opacity > 0
+        onTriggered:  {
+            ballCenter = mapFromItem(ball, ball.width * 0.5, ball.height * 0.5)
+            entityCenter = mapFromItem(entity, entity.width * 0.5, entity.height * 0.5)
+        }
     }
 }

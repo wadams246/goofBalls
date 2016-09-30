@@ -17,7 +17,11 @@ SceneBase {
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
-        color: "#222222"
+        Image {
+            anchors.fill: parent
+            scale: 1.2
+            source: "../../assets/img/background.png"
+        }
     }
     Wall {height:parent.height+50; anchors.right:parent.left}
     Wall {height:parent.height+50; anchors.left:parent.right}
@@ -93,15 +97,7 @@ SceneBase {
                 levelText.opacity = 1;
                 fadeLevelText.start();
                 entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/GreenBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/BlueBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/RedBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/SpeedBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/HealBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/HealerBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/ShieldBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/ShielderBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/SplitBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/SplitBuffBall.qml"));
+
 //                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/PowerUp.qml"));
             }
         }
@@ -139,6 +135,7 @@ SceneBase {
         countdown = 1;
         player.reset();
         ballGenInterval = 3500;
+        player.hp = 100 + (100 * (player.level * .25))
         entityManager.removeEntitiesByFilter(["ball"]);
     }
 

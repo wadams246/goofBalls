@@ -17,7 +17,7 @@ ShieldBall {
     baseDmgPoints: 25
     gScale: 1
     lScale: 1
-    ballPic: "lightBlueBall"
+    ballPic: "orangeBall"
     cat: Circle.Category1
 
     function checkHp () {

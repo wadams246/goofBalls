@@ -18,7 +18,7 @@ EntityBase {
     property int bouncePoints: baseBouncePoints + Math.ceil(baseBouncePoints * (player.level * .1))
     property int baseKillPoints: 100
     property int killPoints: baseKillPoints + Math.ceil(baseKillPoints * (player.level * .1))
-    property int startBounce: -280
+    property int startBounce: -420
     property int tapBounce: -175
     property int leftRight: -4
     property int baseDmgPoints: 10
@@ -35,23 +35,14 @@ EntityBase {
     property int cat: Circle.Category1
     property int startLeftRight: utils.generateRandomValueBetween(-200, 200)
     property int startX: utils.generateRandomValueBetween(55, gameScene.width-55)
-    property int startY: gameScene.height - 55
+    property int startY: gameScene.height + 50
     property real shieldWidth: width * shieldIndicator
     property real shieldHeight: height * shieldIndicator
     property real gScale: 1
     property real lScale: 1
     property bool shielded: true
     property string ballPic: "greenBall"
-
-//    BoxCollider {
-//        id: collider
-//        gravityScale: gScale
-//        linearDamping: lScale
-//        categories: Box.Category1
-//        collidesWith: Box.Category2 | Box.Category3
-//        fixture.restitution: 1
-//    }
-
+    property alias healthBar: healthBar
 
     CircleCollider {
         id: collider
@@ -59,6 +50,8 @@ EntityBase {
         gravityScale: gScale
         linearDamping: lScale
         categories: cat
+        fixture.density: 1/3025
+
         collidesWith: Box.Category2 | Box.Category3
         fixture.restitution: 1
     }
@@ -68,23 +61,20 @@ EntityBase {
         height: ball.width + (shieldIndSize * (shieldHp / shieldMax))
         width: ball.height + (shieldIndSize * (shieldHp / shieldMax))
         radius: width / 2
-        anchors.verticalCenter: sprite.verticalCenter
-        anchors.horizontalCenter: sprite.horizontalCenter
+        anchors.centerIn: sprite
         color: "#4CB0FF"
         opacity: 0
     }
 
     MultiResolutionImage {
         id: sprite
-        width: spriteWidth
-        height: spriteHeight
         source: "../../assets/img/" + ballPic + ".png"
+        anchors.fill: collider
     }
 
     MouseArea {
         id: mouse
-        anchors.verticalCenter: sprite.verticalCenter
-        anchors.horizontalCenter: sprite.horizontalCenter
+        anchors.centerIn: collider
         width: spriteWidth + 20
         height: spriteHeight + 45
         hoverEnabled: true
@@ -96,90 +86,42 @@ EntityBase {
         }
     }
 
-    Rectangle {
-        id: hpBarBack
-        anchors.bottom: parent.top
-        anchors.bottomMargin: 5
+    HealthBar {
+        id: healthBar
+
+        absoluteX: 0
+        absoluteY: -healthBar.height * 2
+
+        width: sprite.width
         height: 5
-        width: spriteWidth
-        color: "red"
-        opacity: 0
-        radius: 1
 
-        Loader {
-            id: hpBarBackLoader
-            onLoaded: {fadeHpBack.stop()}
-        }
-        NumberAnimation on opacity {
-            id: fadeHpBack
-            to: 0
-            duration: 2500
-        }
+        percent: hp / totalHp
+
+        visible: true
     }
 
-    Rectangle {
-        id: hpBar
-        anchors.bottom: parent.top
-        anchors.bottomMargin: 5
-        height: 5
-        width: spriteWidth * (hp / totalHp)
-        color: "#08dc05"
-        opacity: 0
-        radius: 1
+    HealthText {
+        id: healthText
 
-        Loader {
-            id: hpBarLoader
-            onLoaded: {fadeHp.stop()}
-        }
-        NumberAnimation on opacity {
-            id: fadeHp
-            to: 0
-            duration: 2500
-        }
+        absoluteX: 0
+        absoluteY: -20
+
+        width: ball.width
+        height: 8
+
+        healAmount: ball.healAmount
     }
 
-    Text {
-        id: healText
-        anchors {
-            bottom: hpBarBack.top
-            horizontalCenter: hpBarBack.horizontalCenter
-        }
-        text: "+" + healAmount + " HP"
-        color: "#08dc05"
-        font.pixelSize: 8
-        opacity: 0
-
-        Loader {
-            id: fadeHealLoader
-            onLoaded: {fadeHealText.stop()}
-        }
-        NumberAnimation on opacity {
-            id: fadeHealText
-            to: 0
-            duration: 1500
-        }
-    }
-
-    Text {
+    ShieldText {
         id: shieldText
-        anchors {
-            bottom: hpBarBack.top
-            horizontalCenter: hpBarBack.horizontalCenter
-        }
-        text: "+" + shieldAmount + " Shield"
-        color: "#0099ff"
-        font.pixelSize: 8
-        opacity: 0
 
-        Loader {
-            id: fadeShieldLoader
-            onLoaded: {fadeShieldText.stop()}
-        }
-        NumberAnimation on opacity {
-            id: fadeShieldText
-            to: 0
-            duration: 1500
-        }
+        absoluteX: 0
+        absoluteY: -20
+
+        width: ball.width
+        height: 8
+
+        shieldAmount: ball.shieldAmount
     }
 
     Component.onCompleted: {
@@ -196,22 +138,24 @@ EntityBase {
                 shielded = false;
                 hp += shieldHp;
                 player.score += bouncePoints;
-                refreshFade();
+                healthBar.resetBar();
                 resetShield();
             }
             checkHp();
         } else {
             hp -= playerPower
             player.score += bouncePoints
-            refreshFade()
-            checkHp()
+            healthBar.resetBar();
+            checkHp();
         }
-
     }
 
     function moveBall() {
         collider.body.linearVelocity = Qt.point(0,0)
-        var localForwardVector = collider.body.toWorldVector(Qt.point((mouse.mouseX - 25) * leftRight, tapBounce));
+        var forcePoint = collider.body.toWorldVector(Qt.point(5, 0))
+        var force = collider.body.toWorldVector(Qt.point(1,1))
+        var localForwardVector = Qt.point((mouse.mouseX - 25) * leftRight, tapBounce);
+        collider.body.applyForce(force, forcePoint);
         collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
     }
 
@@ -237,7 +181,6 @@ EntityBase {
         if(player.xp >= player.toNextLevel) {
             player.increaseLevel();
             if(player.level > 4) {
-//                ballGen.adjustPercentages();
                 ballGen.increaseBBChance();
             }
 
@@ -252,43 +195,31 @@ EntityBase {
         shieldHp = 0;
     }
 
-    function refreshFade() {
-        fadeHpBack.stop();
-        fadeHp.stop();
-        hpBar.opacity = hpBarBack.opacity = 1;
-        fadeHpBack.start();
-        fadeHp.start();
-    }
-
     function reset() {
         collider.body.linearVelocity = Qt.point(0,0)
     }
 
     function heal(hp) {
-        console.debug("HEAL CALLED!!")
         this.hp = (this.hp + hp) > totalHp ? totalHp : this.hp += hp;
-        healAmount = hp;
-        fadeHealText.stop();
-        healText.opacity = 1;
-        fadeHealText.start();
-        refreshFade();
+        healthText.healAmount = healAmount = hp;
+        shieldText.stopAnimation();
+        healthText.fadeHealText();
+        healthBar.resetBar();
     }
 
     function shield(sp) {
-        console.debug("SHIELD CALLED!!");
         shielded = true;
         shieldHp = shieldHp + sp > shieldMax ? shieldMax : shieldHp + sp;
         shieldIndicator.opacity = 0.5;
         shieldAmount = sp;
-        fadeShieldText.stop();
-        shieldText.opacity = 1;
-        fadeShieldText.start();
+        healthText.stopAnimation();
+        shieldText.fadeShieldText(sp);
     }
 
     function getCenterX() {
-        return x + width / 2;
+        return ball.x + (ball.width / 2);
     }
     function getCenterY() {
-        return y + height / 2;
+        return ball.y + (ball.height / 2);
     }
 }

@@ -14,7 +14,7 @@ Ball {
     baseDmgPoints: 65
     gScale: 1
     lScale: 0
-    ballPic: "orangeBall"
+    ballPic: "darkGrayBall"
     cat: Circle.Category4
 
     property int haste: Math.floor(((player.level - 8) / 2));
@@ -31,7 +31,6 @@ Ball {
         anchors.centerIn: parent
         color: "white"
         opacity: .1
-
     }
 
     CircleCollider {

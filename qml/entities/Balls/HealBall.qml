@@ -17,7 +17,7 @@ Ball {
     baseDmgPoints: 20
     gScale: 1
     lScale: 0
-    ballPic: "lightGreyBall"
+    ballPic: "aquaBall"
     cat: Circle.Category1
 
     property int coolDownTime: 2
@@ -25,31 +25,14 @@ Ball {
     property int healPower: 50 + Math.ceil((player.level / 25) * 50);
     property bool coolDown: true
 
-    Rectangle {
-        id: cdBack
-        anchors.bottom: parent.top
+    CoolDownBar {
+        id: coolDownBar
+        absoluteX: 0
+        absoluteY: -coolDownBar.height
+        width: healBall.width
         height: 5
-        width: spriteWidth
-        color: "black"
-        opacity: 1
-        radius: 1
-    }
-
-    Rectangle {
-        id: cdBar
-        anchors.bottom: parent.top
-        height: 5
-        width: spriteWidth
-        color: "#0099ff"
-        opacity: 1
-        radius: 1
-
-        NumberAnimation on width {
-            id: cdAnimation
-            to: 0
-            duration: coolDownTime * 1000
-            onStopped: cdBar.opacity = cdBack.opacity = 0
-        }
+        coolDownTime: coolDownTime
+        visible: true
     }
 
     Text {
@@ -68,19 +51,11 @@ Ball {
             if(coolDownTime === 0) {
                 coolDown = false;
                 healBall.heal(healPower);
-                resetCD();
+                coolDown = true;
+                coolDownTime = 5
+                coolDownBar.resetCD();
             }
         }
-    }
-
-    function resetCD() {
-        coolDown = true;
-        coolDownTime = 5;
-        cdBack.opacity = cdBar.opacity = 1;
-        cdBar.width = spriteWidth;
-        cdAnimation.stop();
-        cdAnimation.start();
-
     }
 }
 

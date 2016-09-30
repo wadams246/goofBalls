@@ -14,16 +14,21 @@ SceneBase {
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
-        color: "#47688e"
+        Image {
+            anchors.fill: parent
+            scale: 1.2
+            source: "../../assets/img/background.png"
+        }
     }
+
 
     // the "logo"
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 30
-        font.pixelSize: 30
+        y: 50
+        font.pixelSize: 60
         color: "#e9e9e9"
-        text: "Goof Balls"
+        text: "Goofballs"
     }
 
     // menu
