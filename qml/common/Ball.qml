@@ -36,6 +36,8 @@ EntityBase {
     property int startLeftRight: utils.generateRandomValueBetween(-200, 200)
     property int startX: utils.generateRandomValueBetween(55, gameScene.width-55)
     property int startY: gameScene.height + 50
+    property int newRotation: 0
+    property int rotationSpeed: 5000
     property real shieldWidth: width * shieldIndicator
     property real shieldHeight: height * shieldIndicator
     property real gScale: 1

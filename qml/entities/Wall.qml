@@ -11,6 +11,7 @@ EntityBase {
         categories: Box.Category2
         anchors.fill: parent
         bodyType: Body.Static
+        friction: .25
     }
 
 }

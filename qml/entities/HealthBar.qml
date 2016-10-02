@@ -1,5 +1,6 @@
 import VPlay 2.0
 import QtQuick 2.0
+import "../hud"
 
 Item {
     id: healthBar
@@ -20,27 +21,24 @@ Item {
         height: healthBar.height
         opacity: 0
 
-        Rectangle {
+        Image {
+            id: hpBack
             width: healthBar.width
             height: healthBar.height
-            color: "red"
-            opacity: 1
-            radius: 1
-            anchors.right: parent.right
+            source: "../../assets/img/hud/hpBarBack.png"
         }
 
-        Rectangle {
+        Image {
             width: healthBar.width * healthBar.percent
             height: healthBar.height
-            color: "#08dc05"
-            opacity: 1
-            radius: 1
+            source: "../../assets/img/hud/hpBar.png"
         }
+
 
         NumberAnimation on opacity {
             id: fadeHpBarAnimation
             to: 0
-            duration: 2000
+            duration: 2500
         }
     }
 

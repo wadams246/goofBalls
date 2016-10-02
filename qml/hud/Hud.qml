@@ -22,8 +22,6 @@ Item {
             anchors {
                 left: parent.left
                 leftMargin: 10
-                top: parent.top
-                topMargin: 1
             }
         }
 

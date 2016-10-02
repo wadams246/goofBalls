@@ -4,16 +4,22 @@ import "../entities"
 import "../scenes"
 
 Item {
-    id: xpBar
-    width: gameScene.width
-    height: 4
+    id: hpBar
 
-    Rectangle {
-        id: xp
-        height: 4
-        width: Math.ceil(gameScene.width * (player.xp / player.toNextLevel))
-        anchors.left: parent.left
-        color: "yellow"
+    width: 75
+    height: 7
 
+    Image {
+        id: hpBack
+        anchors.fill: parent
+        source: "../../assets/img/hud/xpBarBack.png"
+    }
+
+    Image {
+        width: 75 * (player.xp / player.toNextLevel)
+        height: 7
+        anchors.left: hpBack.left
+        anchors.verticalCenter: hpBack.verticalCenter
+        source: "../../assets/img/hud/xpBar.png"
     }
 }

@@ -114,11 +114,14 @@ DISTFILES += \
     qml/entities/Balls/SplitShielderBall.qml \
     qml/entities/BallCollector.qml \
     qml/entities/BallGenerator.qml \
+    qml/entities/CoolDownBar.qml \
     qml/entities/Ceiling.qml \
     qml/entities/FloatingPowerUpText.qml \
     qml/entities/FloatingText.qml \
     qml/entities/HealBolt.qml \
     qml/entities/HealBolt2.qml \
+    qml/entities/HealthBar.qml \
+    qml/entities/HealthText.qml \
     qml/entities/Player.qml \
     qml/entities/PowerUp.qml \
     qml/entities/ShieldBolt.qml \

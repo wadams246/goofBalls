@@ -6,27 +6,20 @@ import "../entities"
 EntityBase {
     id: powerUp
 
+    x: utils.generateRandomValueBetween(50, gameScene.width - 50);
+    y: utils.generateRandomValueBetween(100, gameScene.height - 100);
+
     property int healPower: 25 + (25 * (player.level * .1))
     property int powerPower: 25 + (25 * (player.level * .1))
     property int xpPower: 2
-    property int startX: -50
-    property int startY: utils.generateRandomValueBetween(100, gameScene.height - 100)
+    property int activeTime: 3
 
     Rectangle {
         id: powerUpSprite
 
         width: 25
         height: 25
-        x: -50
-        y: gameScene.height / 2
         color: "yellow"
-
-        NumberAnimation on x {
-            id: spriteAnimation
-
-            to: gameScene.width + powerUpSprite.width
-            duration: 1250
-        }
     }
 
     MouseArea {
@@ -41,13 +34,19 @@ EntityBase {
         }
     }
 
-    Component.onCompleted: {
-        x: startX
-        y: startY
+    Timer {
+        interval: 1000
+        running: activeTime > 0
+        onTriggered:  {
+            activeTime--;
+            if(activeTime < 1) {
+                powerUp.removeEntity();
+            }
+        }
     }
 
     function pickPowerUp() {
-        rand = utils.generateRandomValueBetween(0, 101);
+        var rand = utils.generateRandomValueBetween(0, 101);
 
         if(rand > 34) {
             healPoewrUp();

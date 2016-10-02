@@ -37,7 +37,7 @@ EntityBase {
         } else {
             entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/BlueBall.qml"));
         }
-        genPowerUp();
+//        genPowerUp();
     }
     function levelTwo() {
         rand = Math.floor(utils.generateRandomValueBetween(0, 101));
@@ -48,7 +48,7 @@ EntityBase {
         } else {
             entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/GreenBall.qml"));
         }
-        genPowerUp();
+//        genPowerUp();
     }
     function levelThree() {
         rand = Math.floor(utils.generateRandomValueBetween(0, 101));
@@ -59,7 +59,7 @@ EntityBase {
         } else {
             entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/GreenBall.qml"));
         }
-        genPowerUp();
+//        genPowerUp();
     }
     function levelFour() {
         rand = Math.floor(utils.generateRandomValueBetween(0, 101));
@@ -72,7 +72,7 @@ EntityBase {
         } else {
             entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/RedBall.qml"));
         }
-        genPowerUp();
+//        genPowerUp();
     }
     function levelPlus(lvl) {
         rand = Math.floor(utils.generateRandomValueBetween(1, 101));
@@ -90,7 +90,7 @@ EntityBase {
                 break;
             }
         }
-        genPowerUp();
+//        genPowerUp();
     }
 
     function increaseBBChance() {
@@ -108,30 +108,4 @@ EntityBase {
         }
 
     }
-
-//    function adjustPercentages() {
-//        var i = 0;
-//        console.debug("Before adjustment");
-//        for(var j = 0; j < percentages.length; j++) {
-//            console.debug(percentages[j]);
-//        }
-
-//        while(percentages[i] === 0) {
-//            i++
-//        }
-//        if(i + 3 <= percentages.length || (i + 3 === percentages.length && percentages[i] > 10)) {
-//            percentages[i] -= 10;
-//            if(percentages[i] === 0) {
-//                percentages[i + 4] += 10;
-//            } else {
-//                percentages[i + 3] += 10;
-//            }
-
-//        }
-
-//        console.debug("Afteradjustment");
-//        for(j = 0; j < percentages.length; j++) {
-//            console.debug(percentages[j]);
-//        }
-//    }
 }

@@ -48,4 +48,5 @@ EntityBase {
             entityCenter = mapFromItem(entity, entity.width * 0.5, entity.height * 0.5)
         }
     }
+
 }

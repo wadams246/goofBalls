@@ -34,25 +34,45 @@ SceneBase {
         z: 1000
     }
 
+    HpBar {
+        id: hpBar
+        anchors {
+            left: gameScene.gameWindowAnchorItem.left
+            leftMargin: 2
+            top: gameScene.gameWindowAnchorItem.top
+            topMargin: 2
+        }
+    }
+
+    XpBar {
+        id: xpBar
+        anchors {
+            right: gameScene.gameWindowAnchorItem.right
+            rightMargin: 2
+            top: gameScene.gameWindowAnchorItem.top
+            topMargin: 2
+        }
+    }
+
     // back button to leave scene
     MenuButton {
         width: 20
         height: 20
         // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
         anchors.right: gameScene.gameWindowAnchorItem.right
-        anchors.rightMargin: 10
-        anchors.top: gameScene.gameWindowAnchorItem.top
-        anchors.topMargin: 10
+        anchors.rightMargin: 2
+        anchors.top: xpBar.bottom
+        anchors.topMargin: 2
         onClicked: backButtonPressed()
+        text: "<<"
     }
 
     Text {
         anchors.left: gameScene.gameWindowAnchorItem.left
         anchors.leftMargin: 2
-        anchors.top: gameScene.gameWindowAnchorItem.top
-        anchors.topMargin: 2
+        anchors.top: hpBar.bottom
         color: "white"
-        font.pixelSize: 20
+        font.pixelSize: 16
         text: "Score: " + player.score
     }
 
@@ -61,7 +81,7 @@ SceneBase {
         anchors.centerIn: gameScene.gameWindowAnchorItem
         anchors.verticalCenterOffset: -75
         color: "yellow"
-        font.pixelSize: 30
+        font.pixelSize: 40
         text: "LEVEL " + player.level
         opacity: 1
 
@@ -72,12 +92,12 @@ SceneBase {
         }
     }
 
-    Hud {
-        anchors {
-            bottom: gameScene.gameWindowAnchorItem.bottom
 
-        }
-    }
+//    Hud {
+//        anchors {
+//            bottom: gameScene.gameWindowAnchorItem.bottom
+//        }
+//    }
 
     // text displaying either the countdown or "tap!"
     Text {
@@ -97,7 +117,6 @@ SceneBase {
                 levelText.opacity = 1;
                 fadeLevelText.start();
                 entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/GreenBall.qml"));
-
 //                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/PowerUp.qml"));
             }
         }

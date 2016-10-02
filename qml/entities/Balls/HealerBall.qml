@@ -1,6 +1,7 @@
 import VPlay 2.0
 import QtQuick 2.0
 import "../../common"
+import "../"
 
 Ball {
     id: healerBall
@@ -72,6 +73,7 @@ Ball {
             coolDownTime--
             if(coolDownTime === 0) {
                 coolDown = false
+
             }
         }
     }
