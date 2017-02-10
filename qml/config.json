@@ -1,8 +1,8 @@
 {
-    "title": "goofballs",
+    "title": "Goofballs",
     "identifier": "com.poopnplay.goofballs",
     "orientation": "portrait",
     "versioncode": 3,
     "versionname": "3.0",
-    "stage": "publish"
+    "stage": "debug"
 }

@@ -16,7 +16,7 @@ EntityBase {
         fixture.onBeginContact: {
             var collidedEntity = other.getBody().target;
             console.debug("ceiling hit");
-            collidedEntity.heal(Math.ceil(collidedEntity.totalHp * .2));
+            collidedEntity.heal(Math.ceil(collidedEntity.totalHp * .25));
 //            collidedEntity.hp += Math.ceil(collidedEntity.totalHp * .2)
 //            collidedEntity.hp = (collidedEntity.hp > collidedEntity.totalHp) ? collidedEntity.totalHp : collidedEntity.hp
 

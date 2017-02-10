@@ -1,5 +1,6 @@
 import VPlay 2.0
 import QtQuick 2.0
+import QtMultimedia 5.0
 import "../scenes"
 import "../entities"
 
@@ -33,9 +34,11 @@ EntityBase {
     property int shieldHp: 0
     property int shieldMax: 50 + Math.ceil((player.level / 25) * 50)
     property int cat: Circle.Category1
-    property int startLeftRight: utils.generateRandomValueBetween(-200, 200)
-    property int startX: utils.generateRandomValueBetween(55, gameScene.width-55)
+    property int startX: utils.generateRandomValueBetween(width, gameScene.width - width)
     property int startY: gameScene.height + 50
+    property int startRight: utils.generateRandomValueBetween(0, 200);
+    property int startLeft: utils.generateRandomValueBetween(0, -200);
+    property int startLeftRight: startX > gameScene.width / 2 ? startLeft : startRight;
     property int newRotation: 0
     property int rotationSpeed: 5000
     property real shieldWidth: width * shieldIndicator
@@ -48,6 +51,7 @@ EntityBase {
 
     CircleCollider {
         id: collider
+
         radius: spriteWidth / 2
         gravityScale: gScale
         linearDamping: lScale
@@ -60,18 +64,71 @@ EntityBase {
 
     Rectangle {
         id: shieldIndicator
+
         height: ball.width + (shieldIndSize * (shieldHp / shieldMax))
         width: ball.height + (shieldIndSize * (shieldHp / shieldMax))
         radius: width / 2
-        anchors.centerIn: sprite
+        anchors.centerIn: spriteSequence
         color: "#4CB0FF"
         opacity: 0
     }
 
-    MultiResolutionImage {
-        id: sprite
-        source: "../../assets/img/" + ballPic + ".png"
-        anchors.fill: collider
+    Shadow {
+        id: shadow
+
+        absoluteX: 0
+        absoluteY: 0
+
+        width: ball.width * 1.05
+        height: ball.height * 1.05
+    }
+
+//    MultiResolutionImage {
+//        id: sprite
+//        source: "../../assets/img/balls/" + ballPic + ".png"
+//        anchors.fill: collider
+//    }
+
+
+    SpriteSequenceVPlay {
+        id: spriteSequence
+
+        anchors.centerIn: parent
+        width: ball.width
+        height: ball.height
+
+        SpriteVPlay {
+          name: "idle"
+          frameCount: 1
+          frameRate: 1
+
+          frameWidth: 200
+          frameHeight: 200
+          source: "../../assets/img/balls/" + ballPic + ".png"
+          to: {"hit":0, "idle": 1}
+        }
+
+        SpriteVPlay {
+          name: "hit"
+          frameCount: 1
+          frameRate: 1
+          startFrameColumn: 2
+
+          frameWidth: 200
+          frameHeight: 200
+          source: "../../assets/img/balls/" + ballPic + ".png"
+          to: {"idle":1}
+        }
+    }
+
+    Highlights {
+        id: highLights
+
+        absoluteX: 0
+        absoluteY: 0
+
+        width: ball.width
+        height: ball.height
     }
 
     MouseArea {
@@ -94,9 +151,8 @@ EntityBase {
         absoluteX: 0
         absoluteY: -healthBar.height * 2
 
-        width: sprite.width
+        width: spriteSequence.width
         height: 5
-
         percent: hp / totalHp
 
         visible: true
@@ -106,7 +162,7 @@ EntityBase {
         id: healthText
 
         absoluteX: 0
-        absoluteY: -20
+        absoluteY: 0
 
         width: ball.width
         height: 8
@@ -130,10 +186,13 @@ EntityBase {
         x = startX;
         y = startY;
         var localForwardVector = collider.body.toWorldVector(Qt.point(startLeftRight, startBounce));
+        console.log('startX ', startX);
+        console.log('startleftright ', startLeftRight);
         collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
     }
 
     function bounce(playerPower) {
+        spriteSequence.jumpTo("hit")
         if(shielded) {
             shieldHp -= playerPower;
             if(shieldHp <= 0) {
@@ -153,9 +212,9 @@ EntityBase {
     }
 
     function moveBall() {
-        collider.body.linearVelocity = Qt.point(0,0)
-        var forcePoint = collider.body.toWorldVector(Qt.point(5, 0))
-        var force = collider.body.toWorldVector(Qt.point(1,1))
+        collider.body.linearVelocity = Qt.point(0,0);
+        var forcePoint = collider.body.toWorldVector(Qt.point(5, 0));
+        var force = collider.body.toWorldVector(Qt.point(1,1));
         var localForwardVector = Qt.point((mouse.mouseX - 25) * leftRight, tapBounce);
         collider.body.applyForce(force, forcePoint);
         collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
@@ -163,18 +222,20 @@ EntityBase {
 
     function checkHp () {
         if(hp < 1) {
-            killPoints += killPoints * (ball.y / gameScene.height)
-            player.score += killPoints
-            calXp(xp)
+            killPoints += killPoints * (ball.y / gameScene.height);
+            player.score += killPoints;
+            calXp(xp);
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/FloatingText.qml"), {
                                                                 "x": ball.x + (ball.width / 2),
-                                                                "y": ball.y + ball.height,
+                                                                "y": ball.y,
                                                                 "score": ball.killPoints,
                                                                 "xp": ball.xp
                                                             });
-            removeEntity()
+            audioManager.playSound("pop");
+            removeEntity();
         } else {
-            moveBall()
+            audioManager.playSound("bounce");
+            moveBall();
         }
     }
 

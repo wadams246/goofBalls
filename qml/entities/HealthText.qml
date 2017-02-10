@@ -26,7 +26,6 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             text: "+" + healAmount + " HP"
         }
-
     }
 
     Loader {
