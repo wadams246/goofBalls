@@ -3,6 +3,7 @@ import QtQuick 2.0
 import QtMultimedia 5.0
 import "../scenes"
 import "../entities"
+import "../common"
 
 EntityBase {
     id: ball
@@ -83,13 +84,6 @@ EntityBase {
         height: ball.height * 1.05
     }
 
-//    MultiResolutionImage {
-//        id: sprite
-//        source: "../../assets/img/balls/" + ballPic + ".png"
-//        anchors.fill: collider
-//    }
-
-
     SpriteSequenceVPlay {
         id: spriteSequence
 
@@ -136,10 +130,10 @@ EntityBase {
         anchors.centerIn: collider
         width: spriteWidth + 20
         height: spriteHeight + 45
-        hoverEnabled: true
-        onEntered: {
-            bounce(player.power);
-        }
+//        hoverEnabled: true
+//        onEntered: {
+//            bounce(player.power);
+//        }
         onPressed: {
             bounce(player.power)
         }

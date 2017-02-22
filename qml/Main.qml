@@ -1,7 +1,8 @@
 import VPlay 2.0
 import QtQuick 2.0
-import "./scenes"
-import "./entities"
+import "scenes"
+import "entities"
+import "common"
 
     GameWindow {
         id: window
@@ -21,8 +22,9 @@ import "./entities"
             entityContainer: gameScene
         }
 
+        // global music and sound management
         AudioManager {
-            id: audioManager
+          id: audioManager
         }
 
         // menu scene
@@ -152,7 +154,6 @@ import "./entities"
                                 name: "bgMusicScript"
                                 script: startMusic.start();
                             }
-
             },
             State {
                 name: "options"
