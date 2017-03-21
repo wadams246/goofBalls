@@ -4,6 +4,7 @@ import QtQuick 2.0
 Item {
     id: highLights
 
+    property string pic: "greenBall"
     property bool ignoreParentRotation: true
     property point ballCenter: mapFromItem(parent, highLights.parent.width * 0.5, highLights.parent.height * 0.5)
 
@@ -22,7 +23,7 @@ Item {
             id: ballShadow
             width: highLights.width
             height: highLights.height
-            source: "../../assets/img/balls/ballHighlights.png"
+            source: "../../assets/img/balls/" + pic + ".png"
         }
     }
 }

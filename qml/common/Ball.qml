@@ -74,14 +74,15 @@ EntityBase {
         opacity: 0
     }
 
-    Shadow {
-        id: shadow
+    Highlights {
+        id: highLights
 
         absoluteX: 0
         absoluteY: 0
 
-        width: ball.width * 1.05
-        height: ball.height * 1.05
+        width: ball.width
+        height: ball.height
+        pic: ballPic
     }
 
     SpriteSequenceVPlay {
@@ -98,7 +99,7 @@ EntityBase {
 
           frameWidth: 200
           frameHeight: 200
-          source: "../../assets/img/balls/" + ballPic + ".png"
+          source: "../../assets/img/balls/" + ballPic + "Face.png"
           to: {"hit":0, "idle": 1}
         }
 
@@ -110,19 +111,9 @@ EntityBase {
 
           frameWidth: 200
           frameHeight: 200
-          source: "../../assets/img/balls/" + ballPic + ".png"
+          source: "../../assets/img/balls/" + ballPic + "Face.png"
           to: {"idle":1}
         }
-    }
-
-    Highlights {
-        id: highLights
-
-        absoluteX: 0
-        absoluteY: 0
-
-        width: ball.width
-        height: ball.height
     }
 
     MouseArea {
