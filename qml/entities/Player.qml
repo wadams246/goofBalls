@@ -50,7 +50,7 @@ EntityBase {
         gameScene.showLevelText(level);
     }
     function reset() {
-        level = 99;
+        level = 1;
         hp = baseHp;
         totalHp = baseHp;
         power = basePower;

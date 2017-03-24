@@ -5,7 +5,7 @@ import "../../common"
 Ball {
     id: speedBall
 
-    baseHp: 100
+    baseHp: 60
     baseXp: 400
     baseBouncePoints: 10
     baseKillPoints: 500
