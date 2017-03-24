@@ -8,8 +8,8 @@ EntityBase {
     property int basePower: 10
     property int power: basePower
     property int baseHp: 100
-    property int totalHp: 100 + (baseHp * (player.level * .25))
-    property int hp: 100 + (baseHp * (player.level * .25))
+    property int totalHp: 100
+    property int hp: baseHp
     property int xp: 0
     property int toNextLevel: 1000
     property int level: 1
@@ -50,7 +50,10 @@ EntityBase {
         gameScene.showLevelText(level);
     }
     function reset() {
-        level = 1;
+        level = 99;
+        hp = baseHp;
+        totalHp = baseHp;
+        power = basePower;
         xp = 0;
         toNextLevel = 1000;
         score = 0;

@@ -27,6 +27,12 @@ import "common"
           id: audioManager
         }
 
+        // custom font
+        FontLoader {
+            id: riffic
+            source: "../assets/RifficFree-Bold.ttf"
+        }
+
         // menu scene
         MenuScene {
             id: menuScene
@@ -129,7 +135,7 @@ import "common"
 
         ConfirmScene {
             id: exitConfirm
-            text: "Really exit to exit game?"
+            text: "Really exit game?"
             onConfirmPressed: Qt.quit()
             onCancelPressed: window.state = "menu"
         }

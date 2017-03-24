@@ -1,37 +1,45 @@
-import VPlay 2.0
 import QtQuick 2.0
 
-Item {
+Rectangle {
     id: hud
-    width: gameScene.width
-    height: 20
+    width: 100
+    height: 34
 
-    Rectangle {
-        anchors.fill: hud
-        color: "#666666"
-
-        XpBar {
-            anchors {
-                bottom: parent.top
-                left: parent.left
-                right: parent.right
-            }
-        }
-
-        HpBar {
-            anchors {
-                left: parent.left
-                leftMargin: 10
-            }
-        }
-
-        StatsBar {
-            anchors.top: parent.top
-            anchors.topMargin: 1
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-        }
-
+    radius: 6
+    border.color: "#0015c5"
+    border.width: 1.5
+    gradient: Gradient {
+        GradientStop { position: 0.0; color: "#5593ff" }
+        GradientStop { position: 1.0; color: "#0043df" }
     }
 
+    LevelText {
+        anchors {
+            left: hud.left
+            leftMargin: 4
+            verticalCenter: hud.verticalCenter
+        }
+    }
+
+    HpBar {
+        id: hpBar
+        hpPercent: (player.hp / player.totalHp)
+        anchors {
+            right: hud.right
+            rightMargin: 4
+            top: hud.top
+            topMargin: 6
+        }
+    }
+
+    XpBar {
+        id: xpBar
+        xpPercent: (player.xp / player.toNextLevel)
+        anchors {
+            right: hud.right
+            rightMargin: 4
+            top: hpBar.bottom
+            topMargin: 2
+        }
+    }
 }

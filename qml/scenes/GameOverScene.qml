@@ -10,48 +10,68 @@ SceneBase {
     signal mainMenuPressed
     signal quitPressed
 
-//    Rectangle {
-//        anchors.fill: parent.gameWindowAnchorItem
-//        color: "#333333"
-//    }
-
 
     Text {
         id: gameOverText
-        text: "Game Over"
-        color: "white"
-        font.pixelSize: 60
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-        anchors.topMargin: 10
+
+        anchors {
+            horizontalCenter: gameOverScene.horizontalCenter
+            bottom: scoreText.top
+            bottomMargin: 5
+        }
+
+        text: "GAME OVER"
+        font.family: riffic.name
+        font.pixelSize: 42
+        color: "#f50030"
+        style: Text.Outline
+        styleColor: "#a5002e"
     }
 
     Text {
         id: scoreText
-        text: "Your Score " + player.score + "\nRankend 1st"
-        color: "white"
+
+        anchors {
+            horizontalCenter: gameOverScene.horizontalCenter
+            bottom: gameMenu.top
+            bottomMargin: 20
+        }
+
+        text: "YOUR SCORE: " + player.score
+        font.family: riffic.name
         font.pixelSize: 18
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: gameOverText.bottom
+        color: "white"
+        style: Text.Outline
+        styleColor: "#0043df"
     }
+    //TODO add ranking system
 
     Column {
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: scoreText.bottom
-        anchors.topMargin: 50
+        id: gameMenu
+
+        anchors.centerIn: parent
         spacing: 1
 
         MenuButton {
-            text: "Play Again"
+            text: "PLAY AGAIN"
+            lightColor: "#7aef76"
+            darkColor: "#00d209"
+            borderColor: "#009210"
             onClicked: playPressed()
         }
         MenuButton {
-            text: "Main Menu"
+            text: "MAIN MENU"
+            lightColor: "#fff410"
+            darkColor: "#f7991e"
+            borderColor: "#a86800"
             onClicked: mainMenuPressed()
         }
         MenuButton {
-            text: "Quit"
-            onClicked: quitPressed()
+            text: "QUIT"
+            lightColor: "#ff7db2"
+            darkColor: "#f50030"
+            borderColor: "#a5002e"
+            onClicked: mainMenuPressed()
         }
     }
 }

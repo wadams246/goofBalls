@@ -8,24 +8,31 @@ SceneBase {
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
-        color: "#49a349"
+        color: "#0043df"
     }
 
-    // back button to leave scene
+    // back button
     MenuButton {
         text: "Back"
-        // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
-        anchors.right: scoresScene.gameWindowAnchorItem.right
-        anchors.rightMargin: 10
-        anchors.top: scoresScene.gameWindowAnchorItem.top
-        anchors.topMargin: 10
+
+        anchors {
+            right: parent.gameWindowAnchorItem.right
+            rightMargin: 10
+            top: parent.gameWindowAnchorItem.top
+            topMargin: 10
+        }
+        width: 80
+        lightColor: "#ff7db2"
+        darkColor: "#f50030"
+        borderColor: "#a5002e"
         onClicked: backButtonPressed()
     }
+    Credit {
+        id: gameDevCred
 
-    // scores
-    Text {
-        text: "High Scores"
-        color: "white"
         anchors.centerIn: parent
+
+        title: "COMMING SOON!!"
+        name: ""
     }
 }

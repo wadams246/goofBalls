@@ -4,20 +4,28 @@ import QtQuick 2.0
 Item {
     id: hpBar
 
-    width: 75
-    height: 7
+    width: 60
+    height: 12
 
-    Image {
+    property real hpPercent: 1
+
+    Rectangle {
         id: hpBack
-        anchors.fill: parent
-        source: "../../assets/img/hud/hpBarBack.png"
+
+        width: hpBar.width
+        height: hpBar.height
+        radius: 2
+        color: "#f50030"
     }
 
-    Image {
-        width: 75 * (player.hp / player.totalHp)
-        height: 7
-        anchors.left: hpBack.left
-        anchors.verticalCenter: hpBack.verticalCenter
-        source: "../../assets/img/hud/hpBar.png"
+    Rectangle {
+        width: hpBar.width * hpPercent
+        height: hpBar.height
+
+        radius: 2
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#7aef76" }
+            GradientStop { position: 1.0; color: "#00d209" }
+        }
     }
 }

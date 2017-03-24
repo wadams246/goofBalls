@@ -171,8 +171,6 @@ EntityBase {
         x = startX;
         y = startY;
         var localForwardVector = collider.body.toWorldVector(Qt.point(startLeftRight, startBounce));
-        console.log('startX ', startX);
-        console.log('startleftright ', startLeftRight);
         collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
     }
 

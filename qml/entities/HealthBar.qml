@@ -21,19 +21,12 @@ Item {
         height: healthBar.height
         opacity: 0
 
-        Image {
-            id: hpBack
+        HpBar {
+            id: hpBar
             width: healthBar.width
             height: healthBar.height
-            source: "../../assets/img/hud/hpBarBack.png"
+            hpPercent: percent
         }
-
-        Image {
-            width: healthBar.width * healthBar.percent
-            height: healthBar.height
-            source: "../../assets/img/hud/hpBar.png"
-        }
-
 
         NumberAnimation on opacity {
             id: fadeHpBarAnimation

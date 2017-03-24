@@ -4,22 +4,28 @@ import "../entities"
 import "../scenes"
 
 Item {
-    id: hpBar
+    id: xpBar
 
-    width: 75
-    height: 7
+    width: 60
+    height: 9
 
-    Image {
-        id: hpBack
-        anchors.fill: parent
-        source: "../../assets/img/hud/xpBarBack.png"
+    property real xpPercent: 1
+
+    Rectangle {
+        id: xpBack
+        width: xpBar.width
+        height: xpBar.height
+        radius: 2
+        color: "#0015c5"
     }
 
-    Image {
-        width: 75 * (player.xp / player.toNextLevel)
-        height: 7
-        anchors.left: hpBack.left
-        anchors.verticalCenter: hpBack.verticalCenter
-        source: "../../assets/img/hud/xpBar.png"
+    Rectangle {
+        width: xpBar.width * xpPercent
+        height: xpBar.height
+        radius: 2
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#fff410" }
+            GradientStop { position: 1.0; color: "#f7991e" }
+        }
     }
 }

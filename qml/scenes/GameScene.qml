@@ -13,7 +13,6 @@ SceneBase {
     property int lScaleMultiplier: 1
     property bool gameRunning: false
 
-
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
@@ -87,56 +86,47 @@ SceneBase {
         z: 1000
     }
 
-    HpBar {
-        id: hpBar
+    Hud {
+        id: hud
         anchors {
             left: gameScene.gameWindowAnchorItem.left
             leftMargin: 2
             top: gameScene.gameWindowAnchorItem.top
             topMargin: 2
         }
-    }
-
-    XpBar {
-        id: xpBar
-        anchors {
-            right: gameScene.gameWindowAnchorItem.right
-            rightMargin: 2
-            top: gameScene.gameWindowAnchorItem.top
-            topMargin: 2
+        // in-game back button
+        MouseArea {
+            id: backButton
+            anchors.centerIn: hud
+            width: hud.width
+            height: hud.height
+            onPressed: backButtonPressed()
         }
     }
 
-    // back button to leave scene
-    MenuButton {
-        width: 20
-        height: 20
-        // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
+    Text {
         anchors.right: gameScene.gameWindowAnchorItem.right
         anchors.rightMargin: 2
-        anchors.top: xpBar.bottom
-        anchors.topMargin: 2
-        onClicked: backButtonPressed()
-        text: "<<"
-    }
-
-    Text {
-        anchors.left: gameScene.gameWindowAnchorItem.left
-        anchors.leftMargin: 2
-        anchors.top: hpBar.bottom
+        anchors.top: gameScene.gameWindowAnchorItem.top
         color: "white"
-        font.pixelSize: 16
-        text: "Score: " + player.score
+        style: Text.Outline
+        styleColor: "#000000"
+        font.pixelSize: 14
+        font.family: riffic.name
+        text: "SCORE: " + player.score
     }
 
     Text {
         id: levelText
         anchors.centerIn: gameScene.gameWindowAnchorItem
         anchors.verticalCenterOffset: -75
+        font.family: riffic.name
+        font.pixelSize: 50
         color: "yellow"
-        font.pixelSize: 40
-        text: "LEVEL " + player.level
+        style: Text.Outline
+        styleColor: "#a86800"
         opacity: 1
+        text: "LEVEL " + player.level
 
         NumberAnimation on opacity {
             id: fadeLevelText
@@ -144,13 +134,6 @@ SceneBase {
             duration: 2500
         }
     }
-
-
-//    Hud {
-//        anchors {
-//            bottom: gameScene.gameWindowAnchorItem.bottom
-//        }
-//    }
 
     // text displaying either the countdown or "tap!"
     Text {
@@ -213,7 +196,6 @@ SceneBase {
         countdown = 1;
         player.reset();
         ballGenInterval = 3000;
-        player.hp = 100 + (100 * (player.level * .25))
         entityManager.removeEntitiesByFilter(["ball"]);
         resetBackground();
     }

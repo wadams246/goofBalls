@@ -3,20 +3,25 @@ import QtQuick 2.0
 Rectangle {
     id: button
     // this will be the default size, it is same size as the contained text + some padding
-    width: 120
-    height: buttonText.height+ paddingVertical*2
-
-    color: "#e9e9e9"
-    // round edges
-    radius: 2
-
-    // the horizontal margin from the Text element to the Rectangle at both the left and the right side.
-    property int paddingHorizontal: 5
-    // the vertical margin from the Text element to the Rectangle at both the top and the bottom side.
-    property int paddingVertical: 2
+    width: 130
+    height: buttonText.height + paddingVertical * 2
+    radius: 6
+    border.width: 1.5
+    border.color: borderColor
+    gradient: Gradient {
+//        GradientStop { position: 0.0; color: "#fff410" }
+//        GradientStop { position: 1.0; color: "#f7991e" }
+        GradientStop { position: 0.0; color: lightColor }
+        GradientStop { position: 1.0; color: darkColor }
+    }
 
     // access the text of the Text component
     property alias text: buttonText.text
+
+    property int paddingVertical: 2
+    property string lightColor: "white"
+    property string darkColor: "black"
+    property string borderColor: "black"
 
     // this handler is called when the button is clicked.
     signal clicked
@@ -24,8 +29,11 @@ Rectangle {
     Text {
         id: buttonText
         anchors.centerIn: parent
+        font.family: riffic.name
         font.pixelSize: 18
-        color: "black"
+        color: "white"
+        style: Text.Outline
+        styleColor: borderColor
     }
 
     MouseArea {
@@ -37,3 +45,42 @@ Rectangle {
         onReleased: button.opacity = 1
     }
 }
+//blue
+//#5593ff
+//#0043df
+//#0015c5
+
+//green
+//#7aef76
+//#00d209
+//#009210
+
+//lightBlue
+//#a9d8f4
+//#4eb4e6
+//#228acb
+
+//orange
+//#ff9b5f
+//#e75201
+//#b63b00
+
+//pink
+//#ff84fb
+//#e501e4
+//#ac00ab
+
+//red
+//#ff7db2
+//#f50030
+//#a5002e
+
+//aqua
+//#c3fdff
+//#48fff8
+//#00ddd6
+
+//yellow
+//#fff410
+//#f7991e
+//#a86800

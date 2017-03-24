@@ -5,30 +5,51 @@ import "../common"
 SceneBase {
     id: optionsScene
 
-    // back button to leave scene
+    Rectangle {
+        id: background
+        anchors.fill: parent.gameWindowAnchorItem
+        color: "#0043df"
+    }
+
+    // back button
     MenuButton {
         text: "Back"
-        // anchor the button to the gameWindowAnchorItem to be on the edge of the screen on any device
-        anchors.right: optionsScene.gameWindowAnchorItem.right
-        anchors.rightMargin: 10
-        anchors.top: optionsScene.gameWindowAnchorItem.top
-        anchors.topMargin: 10
+
+        anchors {
+            right: parent.gameWindowAnchorItem.right
+            rightMargin: 10
+            top: parent.gameWindowAnchorItem.top
+            topMargin: 10
+        }
+        width: 80
+        lightColor: "#ff7db2"
+        darkColor: "#f50030"
+        borderColor: "#a5002e"
         onClicked: backButtonPressed()
     }
 
-    // levels to be selected
+    // user options
     Column {
         anchors.centerIn: parent
-        spacing: 1
-        MenuButton {
-            text: "Sound"
-            width: 200
-            height: 50
+        spacing: 10
+
+        Credit {
+            id: music
+
+            title: "MUSIC"
+            name: ""
         }
-        MenuButton {
-            text: "Difficulty"
-            width: 200
-            height: 50
+        Credit {
+            id: soudFx
+
+            title: "SOUND EFFECTS"
+            name: ""
+        }
+        Credit {
+            id: noAds
+
+            title: "NO ADDS"
+            name: ""
         }
     }
 }

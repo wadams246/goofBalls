@@ -24,7 +24,7 @@ SceneBase {
         }
     }
 
-    // the "logo"
+    // logo
     Item {
         id: logo
         width: 250
@@ -39,38 +39,44 @@ SceneBase {
         }
     }
 
-//    Text {
-//        anchors.horizontalCenter: parent.horizontalCenter
-//        y: 50
-//        font.pixelSize: 60
-//        color: "#e9e9e9"
-//        text: "Goofballs"
-//    }
-
-    // menu
     Column {
+        id: buttonColumn
         anchors.centerIn: parent
         spacing: 1
         MenuButton {
-            text: "Play"
+            text: "PLAY"
+            lightColor: "#7aef76"
+            darkColor: "#00d209"
+            borderColor: "#009210"
             onClicked: playPressed()
         }
         MenuButton {
-            text: "Options"
-            onClicked: optionsPressed()
-        }
-        MenuButton {
-            text: "Credits"
-            onClicked: creditsPressed()
-        }
-        MenuButton {
-            text: "High Scores"
+            text: "HIGH SCORES"
+            lightColor: "#ff84fb"
+            darkColor: "#e501e4"
+            borderColor: "#ac00ab"
             onClicked: scoresPressed()
         }
         MenuButton {
-            text: "Exit"
+            text: "OPTIONS"
+            lightColor: "#fff410"
+            darkColor: "#f7991e"
+            borderColor: "#a86800"
+            onClicked: optionsPressed()
+        }
+        MenuButton {
+            text: "CREDITS"
+            lightColor: "#a9d8f4"
+            darkColor: "#4eb4e6"
+            borderColor: "#228acb"
+            onClicked: creditsPressed()
+        }
+        MenuButton {
+            text: "EXIT"
+            lightColor: "#ff7db2"
+            darkColor: "#f50030"
+            borderColor: "#a5002e"
             onClicked: exitPressed()
         }
     }
-
 }
