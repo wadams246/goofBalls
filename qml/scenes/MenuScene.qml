@@ -57,18 +57,18 @@ SceneBase {
             borderColor: "#ac00ab"
             onClicked: scoresPressed()
         }
+//        MenuButton {
+//            text: "OPTIONS"
+//            lightColor: "#fff410"
+//            darkColor: "#f7991e"
+//            borderColor: "#a86800"
+//            onClicked: optionsPressed()
+//        }
         MenuButton {
-            text: "OPTIONS"
+            text: "CREDITS"
             lightColor: "#fff410"
             darkColor: "#f7991e"
             borderColor: "#a86800"
-            onClicked: optionsPressed()
-        }
-        MenuButton {
-            text: "CREDITS"
-            lightColor: "#a9d8f4"
-            darkColor: "#4eb4e6"
-            borderColor: "#228acb"
             onClicked: creditsPressed()
         }
         MenuButton {
@@ -77,6 +77,26 @@ SceneBase {
             darkColor: "#f50030"
             borderColor: "#a5002e"
             onClicked: exitPressed()
+        }
+    }
+    VolumeControl {
+        id: volControl
+
+        anchors {
+            bottom: parent.bottom
+            bottomMargin: 10
+            left: parent.left
+            leftMargin: 10
+        }
+    }
+    NoAddsControl {
+        id: noAdds
+
+        anchors {
+            bottom: parent.bottom
+            bottomMargin: 10
+            right: parent.right
+            rightMargin: 10
         }
     }
 }

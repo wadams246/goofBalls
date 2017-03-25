@@ -16,8 +16,8 @@ SceneBase {
         text: "Back"
 
         anchors {
-            right: parent.gameWindowAnchorItem.right
-            rightMargin: 10
+            left: parent.gameWindowAnchorItem.left
+            leftMargin: 10
             top: parent.gameWindowAnchorItem.top
             topMargin: 10
         }
