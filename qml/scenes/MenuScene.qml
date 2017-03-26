@@ -75,22 +75,33 @@ SceneBase {
     VolumeControl {
         id: volControl
 
-        scale: .10
+        width: noAddsControl.width
+        height: noAddsControl.height
         anchors {
-            bottom: parent.bottom
-            bottomMargin: 10
-            left: parent.left
-            leftMargin: 10
+            top: buttonColumn.bottom
+            topMargin: 20
+            left: buttonColumn.left
+        }
+    }
+    RateLink {
+        id: rateLink
+
+        width: noAddsControl.width
+        height: noAddsControl.height
+        anchors {
+            top: buttonColumn.bottom
+            topMargin: 20
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: noAddsControl.verticalCenter
         }
     }
     NoAddsControl {
-        id: noAdds
+        id: noAddsControl
 
         anchors {
-            bottom: parent.bottom
-            bottomMargin: 10
-            right: parent.right
-            rightMargin: 10
+            top: buttonColumn.bottom
+            topMargin: 20
+            right: buttonColumn.right
         }
     }
 }

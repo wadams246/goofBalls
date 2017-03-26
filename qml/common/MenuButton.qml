@@ -9,8 +9,6 @@ Rectangle {
     border.width: 1.5
     border.color: borderColor
     gradient: Gradient {
-//        GradientStop { position: 0.0; color: "#fff410" }
-//        GradientStop { position: 1.0; color: "#f7991e" }
         GradientStop { position: 0.0; color: lightColor }
         GradientStop { position: 1.0; color: darkColor }
     }

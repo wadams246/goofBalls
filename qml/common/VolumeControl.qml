@@ -1,66 +1,86 @@
-import VPlay 2.0
 import QtQuick 2.0
 
-Item {
+Rectangle {
     id: volumeControl
 
-    width: speakerPic.width + soundWaves.width
-    height: speakerPic.height
+    width: volPic.width
+    height: volPic.height
+
+//    color: "transparent"
+    gradient: Gradient {
+        GradientStop { position: 0.0; color: "#ff84fb" }
+        GradientStop { position: 1.0; color: "#e501e4" }
+    }
+    border.width: 2
+    border.color: "#ac00ab"
+    radius: 6
 
     property bool sound: true
-    property real scale: .15
 
-    Image {
-        id: speakerPic
+    Rectangle {
+        id: volPic
 
-        width: Math.round(151 * scale)
-        height: Math.round(220 * scale)
+        width: speakerPic.width + soundWaves.width
+        height: speakerPic.height
 
-        source: "../../assets/img/hud/speaker.png"
-    }
+        anchors.centerIn: parent
+        color: "transparent"
 
-    Image {
-        id: soundWaves
+        property bool sound: true
 
-        width: Math.round(92 * scale)
-        height: Math.round(206 * scale)
+        Image {
+            id: speakerPic
 
-        anchors.left: speakerPic.right
-        anchors.leftMargin: 5
-        anchors.verticalCenter: speakerPic.verticalCenter
-        source: "../../assets/img/hud/soundWaves.png"
-        opacity: 1
-    }
+            width: Math.round(151 * .08)
+            height: Math.round(220 * .08)
 
-    Image {
-        id: noSound
+            source: "../../assets/img/hud/speaker.png"
+        }
 
-        width: 134 * scale
-        height: 134 * scale
+        Image {
+            id: soundWaves
 
-        anchors.left: speakerPic.right
-        anchors.leftMargin: 5
-        anchors.verticalCenter: speakerPic.verticalCenter
-        source: "../../assets/img/hud/noSound.png"
-        opacity: 0
-    }
+            width: Math.round(92 * .08)
+            height: Math.round(206 * .08)
 
-    MouseArea {
-        anchors.fill: parent
+            anchors.left: speakerPic.right
+            anchors.leftMargin: 2
+            anchors.verticalCenter: speakerPic.verticalCenter
+            source: "../../assets/img/hud/soundWaves.png"
+            opacity: 1
+        }
 
-        onPressed: {
-            volControl();
+        Image {
+            id: noSound
+
+            width: Math.round(134 * .07)
+            height: Math.round(134 * .07)
+
+            anchors.left: speakerPic.right
+            anchors.leftMargin: 2
+            anchors.verticalCenter: speakerPic.verticalCenter
+            source: "../../assets/img/hud/noSound.png"
+            opacity: 0
+        }
+
+        MouseArea {
+            anchors.fill: parent
+
+            onPressed: {
+                mute();
+            }
         }
     }
 
-    function volControl() {
+    function mute() {
         sound = !sound;
         if(sound) {
-            noSound.opacity = 1;
-            soundWaves.opacity = 0;
-        } else {
             noSound.opacity = 0;
             soundWaves.opacity = 1;
+        } else {
+            noSound.opacity = 1;
+            soundWaves.opacity = 0;
         }
+        console.log('mute ', sound);
     }
 }

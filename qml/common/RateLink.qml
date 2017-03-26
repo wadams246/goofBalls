@@ -1,33 +1,33 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: noAds
+    id: rateLink
 
-    width: noAddsText.width + 5
-    height: noAddsText.height + 5
+    width: rateText.width + 5
+    height: rateText.height + 5
 
 //    color: "transparent"
     gradient: Gradient {
-        GradientStop { position: 0.0; color: "#7aef76" }
-        GradientStop { position: 1.0; color: "#00d209" }
+        GradientStop { position: 0.0; color: "#fff410" }
+        GradientStop { position: 1.0; color: "#f7991e" }
     }
     border.width: 2
-    border.color: "#009210"
+    border.color: "#a86800"
     radius: 6
     anchors {
         top: buttonColumn.bottom
         topMargin: 20
-        right: buttonColumn.right
+        horizontalCenter: parent.horizontalCenter
     }
 
     Text {
-        id: noAddsText
-        anchors.centerIn: parent
+        id: rateText
 
+        anchors.centerIn: parent
         font.family: riffic.name
         font.pixelSize: 10
         color: "white"
-        text: "NO \nADDS"
+        text: "RATE \nAPP"
         horizontalAlignment: Text.AlignHCenter
 
     }
@@ -35,8 +35,8 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
 
-        onPressed:  {
-            noAddsText.color = "black"
+        onPressed: {
+            rateText.color = "black"
         }
     }
 }
