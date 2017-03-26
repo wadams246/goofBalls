@@ -52,23 +52,16 @@ SceneBase {
         }
         MenuButton {
             text: "HIGH SCORES"
-            lightColor: "#ff84fb"
-            darkColor: "#e501e4"
-            borderColor: "#ac00ab"
-            onClicked: scoresPressed()
-        }
-//        MenuButton {
-//            text: "OPTIONS"
-//            lightColor: "#fff410"
-//            darkColor: "#f7991e"
-//            borderColor: "#a86800"
-//            onClicked: optionsPressed()
-//        }
-        MenuButton {
-            text: "CREDITS"
             lightColor: "#fff410"
             darkColor: "#f7991e"
             borderColor: "#a86800"
+            onClicked: scoresPressed()
+        }
+        MenuButton {
+            text: "CREDITS"
+            lightColor: "#a9d8f4"
+            darkColor: "#4eb4e6"
+            borderColor: "#228acb"
             onClicked: creditsPressed()
         }
         MenuButton {
@@ -82,6 +75,7 @@ SceneBase {
     VolumeControl {
         id: volControl
 
+        scale: .10
         anchors {
             bottom: parent.bottom
             bottomMargin: 10
