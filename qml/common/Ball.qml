@@ -27,8 +27,8 @@ EntityBase {
     property int dmgPoints: baseDmgPoints + Math.ceil(baseDmgPoints * (player.level * .05))
     property int baseXp: 100
     property int xp: baseXp + Math.ceil(baseXp * (player.level * .15))
-    property int spriteWidth: 55
-    property int spriteHeight: 55
+    property int spriteWidth: width
+    property int spriteHeight: height
     property int healAmount: 0
     property int shieldAmount: 0
     property int shieldIndSize: 25
@@ -181,6 +181,7 @@ EntityBase {
             if(shieldHp <= 0) {
                 shielded = false;
                 hp += shieldHp;
+                showDmg(shieldHp);
                 player.score += bouncePoints;
                 healthBar.resetBar();
                 resetShield();
@@ -188,6 +189,7 @@ EntityBase {
             checkHp();
         } else {
             hp -= playerPower
+            showDmg(-playerPower);
             player.score += bouncePoints
             healthBar.resetBar();
             checkHp();
@@ -209,8 +211,8 @@ EntityBase {
             player.score += killPoints;
             calXp(xp);
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/FloatingText.qml"), {
-                                                                "x": ball.x + (ball.width / 2),
-                                                                "y": ball.y,
+                                                                "x": collider.body.getWorldCenter().x - width * 0.5,
+                                                                "y": collider.body.getWorldCenter().y - height * 0.5,
                                                                 "score": ball.killPoints,
                                                                 "xp": ball.xp
                                                             });
@@ -267,5 +269,12 @@ EntityBase {
     }
     function getCenterY() {
         return ball.y + (ball.height / 2);
+    }
+    function showDmg(dmg) {
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/DmgText.qml"), {
+                                                            "x": collider.body.getWorldCenter().x - 10,
+                                                            "y": collider.body.getWorldCenter().y - 10,
+                                                            "dmg": dmg
+                                                        });
     }
 }

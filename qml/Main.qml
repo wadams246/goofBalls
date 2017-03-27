@@ -38,8 +38,10 @@ import "common"
             id: menuScene
             // listen to the button signals of the scene and change the state according to it
             onPlayPressed: {
-                gameScene.resetBalls()
-                window.state = "game"
+                system.resumeGameForObject(gameScene);
+                countDownScene.newGame = true;
+                countDownScene.resetCount();
+                window.state = "countDown";
             }
             onOptionsPressed: window.state = "options"
             onScoresPressed: window.state = "scores"
@@ -47,9 +49,8 @@ import "common"
             onExitPressed: window.state = "exitConfirm"
 
             // the menu scene is our start scene, so if back is pressed there we ask the user if he wants to quit the application
-            onBackButtonPressed: {
-                nativeUtils.displayMessageBox(qsTr("Really quit the game?"), "", 2);
-            }
+            onBackButtonPressed: window.state = "exitConfirm"
+            // nativeUtils.displayMessageBox(qsTr("Really quit the game?"), "", 2);
             // listen to the return value of the MessageBox
     //        Connections {
     //            target: nativeUtils
@@ -72,8 +73,28 @@ import "common"
         GameScene {
             id: gameScene
             onBackButtonPressed: {
-                system.pauseGameForObject(gameScene)
-                window.state = "subMenu"
+                system.pauseGameForObject(gameScene);
+                window.state = "subMenu";
+            }
+        }
+
+        CountDownScene {
+            id: countDownScene
+            onStartGame: {
+                system.resumeGameForObject(gameScene);
+                window.state = "game";
+                gameScene.startGame();
+                entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/Balls/GreenBall.qml"));
+                countDownScene.started = true;
+            }
+            onResumeGame: {
+                system.resumeGameForObject(gameScene);
+                window.state = "game"
+                gameScene.resumeGame();
+            }
+            onBackButtonPressed: {
+                system.pauseGameForObject(gameScene);
+                window.state = "subMenu";
             }
         }
 
@@ -95,29 +116,20 @@ import "common"
         SubMenuScene {
             id: subMenuScene
             onResumePressed: {
-                system.resumeGameForObject(gameScene)
-                window.state = "game"
+                gameScene.clearText();
+                countDownScene.newGame = false;
+                countDownScene.resetCount();
+                window.state = "countDown";
             }
-            onOptionsPressed: window.state = "subOptions"
             onMainMenuPressed: window.state ="confirm"
-        }
-        // scene for selecting levels
-        OptionsScene {
-            id: optionsScene
-            onBackButtonPressed: {
-                if(window.state === "options") {
-                    window.state = "menu"
-                } else {
-                    window.state = "subMenu"
-                }
-            }
         }
 
         GameOverScene {
             id: gameOverScene
             onPlayPressed: {
-                gameScene.resetBalls()
-                window.state = "game"
+                countDownScene.newGame = true;
+                countDownScene.resetCount();
+                window.state = "countDown";
             }
             onMainMenuPressed: window.state = "menu"
             onQuitPressed: window.state = "gameOverExitConfirm"
@@ -127,7 +139,6 @@ import "common"
             id: menuConfirm
             text: "Really exit to main menu?"
             onConfirmPressed: {
-                system.resumeGameForObject(gameScene)
                 window.state = "menu"
             }
             onCancelPressed: window.state = "subMenu"
@@ -162,20 +173,21 @@ import "common"
                             }
             },
             State {
-                name: "options"
-                PropertyChanges {target: optionsScene; opacity: 1}
-                PropertyChanges {target: window; activeScene: optionsScene}
-            },
-            State {
                 name: "credits"
                 PropertyChanges {target: creditsScene; opacity: 1}
                 PropertyChanges {target: window; activeScene: creditsScene}
             },
             State {
+                name: "countDown"
+                PropertyChanges {target: gameScene; opacity: 1; enabled: false}
+                PropertyChanges {target: countDownScene; opacity: 1}
+                PropertyChanges {target: window; activeScene: countDownScene}
+                StateChangeScript {script: audioManager.stopMusic("theme");}
+            },
+            State {
                 name: "game"
                 PropertyChanges {target: gameScene; opacity: 1}
                 PropertyChanges {target: window; activeScene: gameScene}
-                StateChangeScript {script: audioManager.stopMusic("theme");}
             },
             State {
                 name: "scores"
@@ -187,12 +199,6 @@ import "common"
                 PropertyChanges {target: gameScene; opacity: 1; enabled: false}
                 PropertyChanges {target: subMenuScene; opacity: 1}
                 PropertyChanges {target: window; activeScene: subMenuScene}
-            },
-            State {
-                name: "subOptions"
-                PropertyChanges {target: gameScene; opacity: 1; enabled: false}
-                PropertyChanges {target: optionsScene; opacity: 1}
-                PropertyChanges {target: window; activeScene: optionsScene}
             },
             State {
                 name: "confirm"

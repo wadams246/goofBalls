@@ -8,7 +8,12 @@ Item {
     property bool ignoreParentRotation: true
     property point ballCenter: mapFromItem(parent, healthText.parent.width * 0.5, healthText.parent.height * 0.5)
 
-    Rotation { id: reverseRotation; origin.x: ballCenter.x; origin.y: ballCenter.y; angle: -healthText.parent.rotation }
+    Rotation {
+        id: reverseRotation
+        origin.x: ballCenter.x
+        origin.y: ballCenter.y
+        angle: -healthText.parent.rotation
+    }
     transform: ignoreParentRotation ? reverseRotation : null
 
     property alias absoluteX: nonRotatedItem.x
@@ -22,7 +27,10 @@ Item {
         Text {
             width: healthText.width
             color: "#08dc05"
-            font.pixelSize: 8
+            style: Text.Outline
+            styleColor: "#ffffff"
+            font.family: riffic.name
+            font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             text: "+" + healAmount + " HP"
         }

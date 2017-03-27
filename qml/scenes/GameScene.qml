@@ -135,68 +135,20 @@ SceneBase {
         }
     }
 
-    // text displaying either the countdown or "tap!"
-    Text {
-        id: countDownText
-        anchors.centerIn: parent
-        color: "white"
-        font.family: riffic.name
-        style: Text.Outline
-        styleColor: "#0015c5"
-        font.pixelSize: 80
-        opacity: 1
-        text: countdown > 0 ? countdown : ""
-
-        NumberAnimation on opacity {
-            id: fadeCountDown
-            to: .2
-            duration: 1000
-        }
-        NumberAnimation on font.pixelSize {
-            id: resizeFont
-            to: 60
-            duration: 1000
-        }
-    }
-
     Text {
         id: goText
         anchors.centerIn: parent
-        color: "white"
+        color: "#00d209"
         font.family: riffic.name
         style: Text.Outline
-        styleColor: "#0015c5"
-        font.pixelSize: 80
-        opacity: 0
-        text: countdown > 0 && goText.opacity > 0 ? "" : "GO!"
+        styleColor: "#ffffff"
+        font.pixelSize: 60
+        text: goText.opacity > 0 ? "GO!" : ""
 
         NumberAnimation on opacity {
             id: fadeGo
             to: 0
             duration: 2500
-        }
-        NumberAnimation on font.pixelSize {
-            id: resizeGo
-            to: 60
-            duration: 1000
-        }
-    }
-
-    Timer {
-        repeat: true
-        running: countdown > 0 && window.state === "game" && gameRunning === false
-        onTriggered: {
-            decCount();
-            if(countdown < 1) {
-                gameRunning = true
-                levelText.opacity = 1;
-                fadeLevelText.start();
-                goText.opacity = 1;
-                fadeGo.start();
-                resizeGo.start();
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/GreenBall.qml"));
-//                entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/PowerUp.qml"));
-            }
         }
     }
 
@@ -235,8 +187,6 @@ SceneBase {
     function resetBalls() {
         gameRunning = false;
         balls = 1;
-        countdown = 3;
-        resetCount();
         player.reset();
         ballGenInterval = 3000;
         entityManager.removeEntitiesByFilter(["ball"]);
@@ -252,25 +202,23 @@ SceneBase {
         levelText.text = "LEVEL " + player.level;
         fadeLevelText.start();
     }
-    function resetCount() {
-        countDownText.opacity = 1;
-        countDownText.font.pixelSize = 80;
-        goText.opacity = 0;
-        goText.font.pixelSize = 80;
-        fadeCountDown.start();
-        resizeFont.start();
-        fadeGo.start();
-        resizeGo.start();
-    }
-    function decCount() {
-        countdown--;
-        fadeCountDown.stop();
-        resizeFont.stop();
+    function showGo() {
         fadeGo.stop();
-        resizeGo.stop();
-        countDownText.opacity = 1;
-        countDownText.font.pixelSize = 80;
-        fadeCountDown.start();
-        resizeFont.start();
+        goText.opacity = 1;
+        fadeGo.start();
+    }
+    function startGame() {
+        resetBalls();
+        gameRunning = true;
+        showGo();
+        showLevelText(1);
+    }
+    function resumeGame() {
+        gameRunning = true;
+        showGo();
+    }
+    function clearText() {
+        fadeGo.stop();
+        goText.opacity = 0;
     }
 }

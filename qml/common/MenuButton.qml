@@ -43,6 +43,12 @@ Rectangle {
         onReleased: button.opacity = 1
     }
 }
+
+//darkGray
+//#5c5d60
+//#1a1a1a
+//#141414
+
 //blue
 //#5593ff
 //#0043df

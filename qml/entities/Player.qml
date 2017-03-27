@@ -53,7 +53,7 @@ EntityBase {
         level = 1;
         hp = baseHp;
         totalHp = baseHp;
-        power = basePower;
+        power = basePower * 1.25;
         xp = 0;
         toNextLevel = 1000;
         score = 0;

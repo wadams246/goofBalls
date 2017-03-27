@@ -2,6 +2,7 @@ import VPlay 2.0
 import QtQuick 2.0
 
 EntityBase {
+    id: floatingText
     entityId: "floatingText"
     entityType: "floatingText"
 
@@ -11,8 +12,9 @@ EntityBase {
     Text {
         id: floatingScore
         color: "#08dc05"
-        font.pixelSize: 8
-        font.bold: true
+        style: Text.Outline
+        styleColor: "#000000"
+        font.pixelSize: 14
         text: "+" + score + "pts"
         opacity: 1
 
@@ -20,15 +22,11 @@ EntityBase {
             id: floatingXp
             anchors.top: floatingScore.bottom
             color: "yellow"
-            font.pixelSize: 8
-            font.bold: true
-            text: xp > 0 ? "+" + xp + "xp" : ""
+            style: Text.Outline
+            styleColor: "#000000"
+            font.pixelSize: 14
+            text: xp > 0 ? "+" + xp + "XP" : ""
             opacity: 1
-
-            NumberAnimation on opacity {
-                to: 0
-                duration: 1500
-            }
         }
 
         NumberAnimation on opacity {
@@ -36,15 +34,6 @@ EntityBase {
             duration: 1500
             onStopped: removeEntity()  // TODO change this to a pooled entity
         }
-        NumberAnimation on y {
-            to: -25
-            duration: 1000
-        }
     }
 
-    function getScore(s) {
-        score = s
-        floatingScore.opacity = 1
-        floatingScore.start()
-    }
 }

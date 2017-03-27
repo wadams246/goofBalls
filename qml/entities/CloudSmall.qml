@@ -13,7 +13,7 @@ Item {
         height: implicitHeight * .25
         width: implicitWidth * .25
         x: xPos
-        y: Math.random() * 50 + 15
+        y: Math.random() * 50 + 30
         opacity: .8
         source: "../../assets/img/background/cloud" + num + ".png"
 
@@ -28,9 +28,7 @@ Item {
        running: true
        onLimitReached: {
          cloudImg.x = menuScene.width
-         cloudImg.y = Math.random() * 50 + 15
+         cloudImg.y = Math.random() * 50 + 30
        }
     }
-
-
 }
