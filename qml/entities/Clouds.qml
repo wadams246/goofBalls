@@ -6,6 +6,9 @@ Item {
     id: clouds
 
     CloudSmall {
+        xPos: menuScene.width * .15
+    }
+    CloudSmall {
         xPos: menuScene.width * .5
     }
     CloudSmall {
@@ -15,12 +18,12 @@ Item {
         xPos: menuScene.width * 1.5
     }
     CloudBig {
-        xPos: menuScene.width * .25
+        xPos: menuScene.width * .30
     }
     CloudBig {
-        xPos: menuScene.width * .75
+        xPos: menuScene.width * .70
     }
     CloudBig {
-        xPos: menuScene.width * 1.25
+        xPos: menuScene.width * 1.15
     }
 }

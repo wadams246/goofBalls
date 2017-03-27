@@ -73,7 +73,6 @@ Ball {
             coolDownTime--
             if(coolDownTime === 0) {
                 coolDown = false
-
             }
         }
     }

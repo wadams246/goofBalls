@@ -8,7 +8,7 @@ SceneBase {
     id:gameScene
 
     property int balls: 1
-    property int countdown: 1
+    property int countdown: 3
     property int ballGenInterval: 3500
     property int lScaleMultiplier: 1
     property bool gameRunning: false
@@ -18,15 +18,15 @@ SceneBase {
         anchors.fill: parent.gameWindowAnchorItem
         Image {
             anchors.fill: parent
-            source: "../../assets/img/background/dayBackground.png"
+            source: "../../assets/img/background/newBg.png"
         }
 
-        Image {
-            id: duskSky
-            anchors.fill: parent
-            source: "../../assets/img/background/duskBackground.png"
-            opacity: 0
-        }
+//        Image {
+//            id: duskSky
+//            anchors.fill: parent
+//            source: "../../assets/img/background/duskBackground.png"
+//            opacity: 0
+//        }
 //        Image {
 //            id: nightSky
 //            anchors.fill: parent
@@ -34,31 +34,31 @@ SceneBase {
 //            opacity: 0
 //        }
 
-        NumberAnimation on opacity {
-            id: dayToDusk
-            target: duskSky
-            property: "opacity"
-            from: 0
-            to: 1
-            duration: 120000
-            running: false
-            onStopped: {
-                duskToDay.start();
-            }
-        }
+//        NumberAnimation on opacity {
+//            id: dayToDusk
+//            target: duskSky
+//            property: "opacity"
+//            from: 0
+//            to: 1
+//            duration: 120000
+//            running: false
+//            onStopped: {
+//                duskToDay.start();
+//            }
+//        }
 
-        NumberAnimation on opacity {
-            id: duskToDay
-            target: duskSky
-            property: "opacity"
-            from: 1
-            to: 0
-            duration: 120000
-            running: false
-            onStopped: {
-                dayToDusk.start();
-            }
-        }
+//        NumberAnimation on opacity {
+//            id: duskToDay
+//            target: duskSky
+//            property: "opacity"
+//            from: 1
+//            to: 0
+//            duration: 120000
+//            running: false
+//            onStopped: {
+//                dayToDusk.start();
+//            }
+//        }
 //        NumberAnimation on opacity {
 //            id: nightToDay
 //            target: nightSky
@@ -77,7 +77,7 @@ SceneBase {
     }
     Wall {height:parent.height+50; anchors.right:parent.left}
     Wall {height:parent.height+50; anchors.left:parent.right}
-    BallCollector {id: ballCollector; width:parent.width; anchors.top:parent.gameWindowAnchorItem.bottom; anchors.topMargin: 110}
+    BallCollector {id: ballCollector; width:parent.width; anchors.top:parent.gameWindowAnchorItem.bottom; anchors.topMargin: 130}
     Ceiling {id: top; width:parent.width; anchors.bottom:parent.gameWindowAnchorItem.top; anchors.bottomMargin: 1}
 
     PhysicsWorld {
@@ -136,19 +136,33 @@ SceneBase {
     }
 
     // text displaying either the countdown or "tap!"
-    Text {
-        anchors.centerIn: parent
-        color: "white"
-        font.pixelSize: countdown > 0 ? 120 : 18
-        text: countdown > 0 ? countdown : ""
+//    Text {
+//        id: countDownText
+//        anchors.centerIn: parent
+//        color: "white"
+//        font.family: riffic.name
+//        style: Text.Outline
+//        styleColor: "#0015c5"
+//        font.pixelSize: countdown > 0 ? 60 : 18
+//        opacity: 1
+//        text: countdown > 0 ? countdown : ""
+//        NumberAnimation on opacity {
+//            id: fadeCountDown
+//            to: .5
+//            duration: 1000
+//        }
+//    }
+    CountDown {
+        id: countDown
+        anchors.centerIn: gameScene
     }
 
     Timer {
         repeat: true
         running: countdown > 0 && window.state === "game" && gameRunning === false
         onTriggered: {
-            countdown--
-            if(countdown < 1) {
+            countDown.countDown();
+            if(countDown.count < 1) {
                 gameRunning = true
                 levelText.opacity = 1;
                 fadeLevelText.start();
@@ -184,20 +198,20 @@ SceneBase {
         }
      }
 
-    function resetBackground() {
-        dayToDusk.restart();
-        duskSky.opacity = 0;
-        dayToDusk.start();
-    }
+//    function resetBackground() {
+//        dayToDusk.restart();
+//        duskSky.opacity = 0;
+//        dayToDusk.start();
+//    }
 
     function resetBalls() {
         gameRunning = false;
         balls = 1;
-        countdown = 1;
+        countdown = 3;
         player.reset();
         ballGenInterval = 3000;
         entityManager.removeEntitiesByFilter(["ball"]);
-        resetBackground();
+//        resetBackground();
     }
 
     function changeInterval() {

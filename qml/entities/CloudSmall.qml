@@ -5,15 +5,15 @@ Item {
 
     id: smallCloud
 
-    property int num: Math.random() * 2 + 1;
+    property int num: Math.random() * 3 + 4;
     property real xPos: 0;
 
     Image {
         id: cloudImg
-        height: 151 * .25
-        width: 249 * .25
+        height: implicitHeight * .25
+        width: implicitWidth * .25
         x: xPos
-        y: 5 + Math.random() * 100
+        y: Math.random() * 50 + 15
         opacity: .8
         source: "../../assets/img/background/cloud" + num + ".png"
 
@@ -23,12 +23,12 @@ Item {
        id: cloudMovement
        target: cloudImg
        property: "x"
-       minPropertyValue: -249 * .25
+       minPropertyValue: -cloudImg
        velocity: -5
        running: true
        onLimitReached: {
          cloudImg.x = menuScene.width
-         cloudImg.y = 10 + Math.random() * 100
+         cloudImg.y = Math.random() * 50 + 15
        }
     }
 

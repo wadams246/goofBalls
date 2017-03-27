@@ -11,7 +11,7 @@ Rectangle {
         GradientStop { position: 0.0; color: "#7aef76" }
         GradientStop { position: 1.0; color: "#00d209" }
     }
-    border.width: 2
+    border.width: 1
     border.color: "#009210"
     radius: 6
     anchors {
@@ -28,6 +28,8 @@ Rectangle {
         font.pixelSize: 10
         color: "white"
         text: "NO \nADDS"
+        style: Text.Outline
+        styleColor: parent.border.color
         horizontalAlignment: Text.AlignHCenter
 
     }

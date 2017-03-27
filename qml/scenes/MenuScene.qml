@@ -17,7 +17,7 @@ SceneBase {
         anchors.fill: parent.gameWindowAnchorItem
         Image {
             anchors.fill: parent
-            source: "../../assets/img/background/dayBackground.png"
+            source: "../../assets/img/background/newBg.png"
         }
         Clouds {
             id: clouds

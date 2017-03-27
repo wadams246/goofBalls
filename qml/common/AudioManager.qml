@@ -56,4 +56,9 @@ Item {
             pop.play();
         }
     }
+    function muteSounds() {
+        theme.muted = !theme.muted;
+        bounce.muted = !bounce.muted;
+        pop.muted = !pop.muted;
+    }
 }

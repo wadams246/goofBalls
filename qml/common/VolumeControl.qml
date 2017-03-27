@@ -8,11 +8,11 @@ Rectangle {
 
 //    color: "transparent"
     gradient: Gradient {
-        GradientStop { position: 0.0; color: "#ff84fb" }
-        GradientStop { position: 1.0; color: "#e501e4" }
+        GradientStop { position: 0.0; color: "#ff9b5f" }
+        GradientStop { position: 1.0; color: "#e75201" }
     }
-    border.width: 2
-    border.color: "#ac00ab"
+    border.width: 1
+    border.color: "#b63b00"
     radius: 6
 
     property bool sound: true
@@ -31,36 +31,23 @@ Rectangle {
         Image {
             id: speakerPic
 
-            width: Math.round(151 * .08)
-            height: Math.round(220 * .08)
+            width: Math.round(implicitWidth * .13)
+            height: Math.round(implicitHeight * .15)
 
-            source: "../../assets/img/hud/speaker.png"
+            source: "../../assets/img/sound/speaker.png"
         }
 
         Image {
             id: soundWaves
 
-            width: Math.round(92 * .08)
-            height: Math.round(206 * .08)
+            width: Math.round(implicitWidth * .13)
+            height: Math.round(implicitHeight * .15)
 
             anchors.left: speakerPic.right
             anchors.leftMargin: 2
             anchors.verticalCenter: speakerPic.verticalCenter
-            source: "../../assets/img/hud/soundWaves.png"
+            source: "../../assets/img/sound/soundWaves.png"
             opacity: 1
-        }
-
-        Image {
-            id: noSound
-
-            width: Math.round(134 * .07)
-            height: Math.round(134 * .07)
-
-            anchors.left: speakerPic.right
-            anchors.leftMargin: 2
-            anchors.verticalCenter: speakerPic.verticalCenter
-            source: "../../assets/img/hud/noSound.png"
-            opacity: 0
         }
 
         MouseArea {
@@ -74,13 +61,7 @@ Rectangle {
 
     function mute() {
         sound = !sound;
-        if(sound) {
-            noSound.opacity = 0;
-            soundWaves.opacity = 1;
-        } else {
-            noSound.opacity = 1;
-            soundWaves.opacity = 0;
-        }
-        console.log('mute ', sound);
+        soundWaves.opacity = sound ? 1 : 0;
+        audioManager.muteSounds();
     }
 }

@@ -40,7 +40,6 @@ Ball {
         }
     }
 
-
     Component.onCompleted: {
         x = utils.generateRandomValueBetween(0, gameScene.width-150)
         y = 20

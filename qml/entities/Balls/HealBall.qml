@@ -35,13 +35,6 @@ Ball {
         visible: true
     }
 
-    Text {
-        anchors.centerIn: parent
-        font.pixelSize: 8
-        color: "black"
-        text: healPower
-    }
-
     Timer {
         interval: 1000
         repeat: true

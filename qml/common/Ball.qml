@@ -9,8 +9,8 @@ EntityBase {
     id: ball
     entityType: "ball"
 
-    width: 55
-    height: 55
+    width: 60
+    height: 60
     z: 1
 
     property int baseHp: 50
@@ -119,8 +119,8 @@ EntityBase {
     MouseArea {
         id: mouse
         anchors.centerIn: collider
-        width: spriteWidth + 20
-        height: spriteHeight + 45
+        width: parent.width + 20
+        height: parent.height + 60
 //        hoverEnabled: true
 //        onEntered: {
 //            bounce(player.power);
