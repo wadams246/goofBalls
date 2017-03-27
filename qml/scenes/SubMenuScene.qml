@@ -25,19 +25,43 @@ SceneBase {
         }
 
         MenuButton {
-            text: "Options"
-            lightColor: "#fff410"
-            darkColor: "#f7991e"
-            borderColor: "#a86800"
-            onClicked: optionsPressed()
-        }
-
-        MenuButton {
             text: "Main Menu"
             lightColor: "#ff7db2"
             darkColor: "#f50030"
             borderColor: "#a5002e"
             onClicked: mainMenuPressed()
+        }
+    }
+    VolumeControl {
+        id: volControl
+
+        width: noAddsControl.width
+        height: noAddsControl.height
+        anchors {
+            top: buttonColumn.bottom
+            topMargin: 20
+            left: buttonColumn.left
+        }
+    }
+    RateLink {
+        id: rateLink
+
+        width: noAddsControl.width
+        height: noAddsControl.height
+        anchors {
+            top: buttonColumn.bottom
+            topMargin: 20
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: noAddsControl.verticalCenter
+        }
+    }
+    NoAddsControl {
+        id: noAddsControl
+
+        anchors {
+            top: buttonColumn.bottom
+            topMargin: 20
+            right: buttonColumn.right
         }
     }
 }

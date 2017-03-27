@@ -74,4 +74,36 @@ SceneBase {
             onClicked: mainMenuPressed()
         }
     }
+    VolumeControl {
+        id: volControl
+
+        width: noAddsControl.width
+        height: noAddsControl.height
+        anchors {
+            top: gameMenu.bottom
+            topMargin: 20
+            left: gameMenu.left
+        }
+    }
+    RateLink {
+        id: rateLink
+
+        width: noAddsControl.width
+        height: noAddsControl.height
+        anchors {
+            top: gameMenu.bottom
+            topMargin: 20
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: noAddsControl.verticalCenter
+        }
+    }
+    NoAddsControl {
+        id: noAddsControl
+
+        anchors {
+            top: gameMenu.bottom
+            topMargin: 20
+            right: gameMenu.right
+        }
+    }
 }

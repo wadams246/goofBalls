@@ -27,8 +27,8 @@ SceneBase {
     // logo
     Item {
         id: logo
-        width: 250
-        height: 60
+        width: 250 * 1.10
+        height: 60 * 1.10
         anchors.horizontalCenter: parent.horizontalCenter
         y: 80
 
