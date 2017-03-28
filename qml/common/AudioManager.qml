@@ -26,6 +26,20 @@ Item {
         source: "../../assets/snd/pop.wav"
     }
 
+    SoundEffectVPlay {
+        id: heal
+        autoPlay: false
+        loops: 0
+        source: "../../assets/snd/heal.wav"
+    }
+
+    SoundEffectVPlay {
+        id: shield
+        autoPlay: false
+        loops: 0
+        source: "../../assets/snd/shield.wav"
+    }
+
     NumberAnimation {
         id: fadeVol
         target: theme
@@ -54,6 +68,12 @@ Item {
         } else if(sound === "pop") {
             pop.stop();
             pop.play();
+        } else if(sound === "heal") {
+            heal.stop();
+            heal.play();
+        } else if(sound === "shield") {
+            shield.stop();
+            shield.play();
         }
     }
     function muteSounds() {

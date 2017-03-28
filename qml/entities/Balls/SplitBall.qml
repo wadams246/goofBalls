@@ -27,9 +27,11 @@ Ball {
                                                                 "score": killPoints,
                                                                 "xp": xp
                                                             });
+            audioManager.playSound("pop");
             removeEntity()
             spawnTwo();
         } else {
+            audioManager.playSound("bounce");
             moveBall();
         }
     }
