@@ -18,7 +18,7 @@ SceneBase {
         anchors.fill: parent.gameWindowAnchorItem
         Image {
             anchors.fill: parent
-            source: "../../assets/img/background/newBg.png"
+            source: "../../assets/img/background/background.png"
         }
 
 //        Image {
@@ -208,7 +208,6 @@ SceneBase {
         fadeGo.start();
     }
     function startGame() {
-        resetBalls();
         gameRunning = true;
         showGo();
         showLevelText(1);
@@ -220,5 +219,7 @@ SceneBase {
     function clearText() {
         fadeGo.stop();
         goText.opacity = 0;
+        fadeLevelText.stop();
+        levelText.opacity = 0;
     }
 }

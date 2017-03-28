@@ -53,9 +53,9 @@ EntityBase {
         level = 1;
         hp = baseHp;
         totalHp = baseHp;
-        power = basePower * 1.25;
+        power = basePower;
         xp = 0;
-        toNextLevel = 1000;
+        toNextLevel = 1000 * .70;
         score = 0;
     }
     function getLevel() {

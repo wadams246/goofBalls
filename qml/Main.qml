@@ -40,6 +40,8 @@ import "common"
             onPlayPressed: {
                 system.resumeGameForObject(gameScene);
                 countDownScene.newGame = true;
+                gameScene.resetBalls();
+                gameScene.clearText();
                 countDownScene.resetCount();
                 window.state = "countDown";
             }
@@ -128,6 +130,7 @@ import "common"
             id: gameOverScene
             onPlayPressed: {
                 countDownScene.newGame = true;
+                gameScene.resetBalls();
                 countDownScene.resetCount();
                 window.state = "countDown";
             }

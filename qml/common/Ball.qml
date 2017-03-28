@@ -181,7 +181,7 @@ EntityBase {
             if(shieldHp <= 0) {
                 shielded = false;
                 hp += shieldHp;
-                showDmg(shieldHp);
+//                showDmg(shieldHp);
                 player.score += bouncePoints;
                 healthBar.resetBar();
                 resetShield();
@@ -189,7 +189,7 @@ EntityBase {
             checkHp();
         } else {
             hp -= playerPower
-            showDmg(-playerPower);
+//            showDmg(-playerPower);
             player.score += bouncePoints
             healthBar.resetBar();
             checkHp();
