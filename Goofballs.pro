@@ -130,5 +130,12 @@ DISTFILES += \
     qml/hud/Hud.qml \
     qml/hud/StatsBar.qml \
     qml/hud/XpBar.qml \
-    qml/scenes/GameOverScene.qml
+    qml/scenes/GameOverScene.qml \
+    qml/common/Credit.qml \
+    qml/common/AudioManager.qml \
+    qml/common/Highlights.qml \
+    qml/common/NoAddsControl.qml \
+    qml/common/RateLink.qml \
+    qml/common/VolumeControl.qml \
+    qml/scenes/HowToScene.qml
 

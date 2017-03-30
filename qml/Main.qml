@@ -14,7 +14,7 @@ import "common"
         //  * Publish your games & apps for the app stores
         //  * Remove the V-Play Splash Screen or set a custom one (available with the Pro Licenses)
         //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
-        licenseKey: "CDCB35B379500682D6D50A7405DCDE69A575FC63F31E59B2120D203AA6A3433B12ED2E6BD1F28AA8E98C910CBB00423DF01080E9C1858012DD7DE7C3F2FA738650D0F4F05D9C4C78351C7252F17B9478C4A59723588AAC170674C73B5E726B51CBCACBF9F0DA30785B0B312C8CCDE8A9E3ABAB82EEE6A2CC3BAFD5E114647C3AD41CB303AE743D1609EB03D73BC667B7F99E4787376200C8709132C5258D2B89AF24429AE3461A7BF7EC7811D23AC21FD55E02F79729582F48E2203CB6C0FF96C6FD9721B79CE071127FE66883F95A4C1692B46907B6E65AC7F7FADFFD1F0C58DE6D683A6D3755C6CA9DEB39F62D2BFB96A06A448DBD329E0B65C0FD589CB1943CE1A3E280D1CDFFA3C8FDA388425F434F8821953B99532531E723EF2C824C87"
+        licenseKey: ""
 
         // create and remove entities at runtime
         EntityManager {
@@ -47,6 +47,7 @@ import "common"
             }
             onOptionsPressed: window.state = "options"
             onScoresPressed: window.state = "scores"
+            onHowToPressed: window.state = "howTo"
             onCreditsPressed: window.state = "credits"
             onExitPressed: window.state = "exitConfirm"
 
@@ -104,6 +105,11 @@ import "common"
             onBackButtonPressed: window.state = "menu"
         }
 
+        HowToScene {
+            id: howToScene
+            onBackButtonPressed: window.state = "menu"
+        }
+
         SubMenuScene {
             id: subMenuScene
             onResumePressed: {
@@ -145,7 +151,7 @@ import "common"
 
         Timer {
             id: startMusic
-            interval: 7000
+            interval: 5000
             onTriggered: audioManager.playMusic("theme")
         }
 
@@ -185,6 +191,11 @@ import "common"
                 name: "scores"
                 PropertyChanges {target: scoresScene; opacity: 1}
                 PropertyChanges {target: window; activeScene: scoresScene}
+            },
+            State {
+                name: "howTo"
+                PropertyChanges {target: howToScene; opacity: 1}
+                PropertyChanges {target: window; activeScene: howToScene}
             },
             State {
                 name: "subMenu"

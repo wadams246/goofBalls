@@ -8,7 +8,7 @@ Ball {
 
     width: 100
     height: 100
-    baseHp: 1000
+    baseHp: 1000 * .75
     baseBouncePoints: 5
     baseXp: 1500
     baseKillPoints: 1000

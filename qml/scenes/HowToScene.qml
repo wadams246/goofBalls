@@ -3,7 +3,7 @@ import QtQuick 2.0
 import "../common"
 
 SceneBase {
-    id: scoresScene
+    id: instructionScene
 
     // background
     Rectangle {
@@ -28,11 +28,11 @@ SceneBase {
         onClicked: backButtonPressed()
     }
     Credit {
-        id: gameDevCred
+        id: instructions
 
         anchors.centerIn: parent
 
-        title: "COMING SOON!!"
+        title: "Keep the balls in the \nmiddle of the screen. \nIf the balls drop off \nthe bottom of the screen \nyou will take damage \nbased on the ball that \nyou dropped. If you \nhit the balls too high \nthey will regain health. \nThe game will go on for as \nlong as you do."
         name: ""
     }
 }

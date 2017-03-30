@@ -121,10 +121,10 @@ EntityBase {
         anchors.centerIn: collider
         width: parent.width + 20
         height: parent.height + 60
-        hoverEnabled: true
-        onEntered: {
-            bounce(player.power);
-        }
+//        hoverEnabled: true
+//        onEntered: {
+//            bounce(player.power);
+//        }
         onPressed: {
             bounce(player.power)
         }
@@ -248,7 +248,7 @@ EntityBase {
     }
 
     function heal(hp) {
-        audioManager.playSound("heal");
+//        audioManager.playSound("heal");
         this.hp = (this.hp + hp) > totalHp ? totalHp : this.hp += hp;
         healthText.healAmount = healAmount = hp;
         shieldText.stopAnimation();
@@ -257,7 +257,7 @@ EntityBase {
     }
 
     function shield(sp) {
-        audioManager.playSound("shield");
+//        audioManager.playSound("shield");
         shielded = true;
         shieldHp = shieldHp + sp > shieldMax ? shieldMax : shieldHp + sp;
         shieldIndicator.opacity = 0.5;

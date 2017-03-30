@@ -188,7 +188,7 @@ SceneBase {
         gameRunning = false;
         balls = 1;
         player.reset();
-        ballGenInterval = 3000;
+        ballGenInterval = 2000;
         entityManager.removeEntitiesByFilter(["ball"]);
 //        resetBackground();
     }
