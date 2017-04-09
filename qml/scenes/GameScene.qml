@@ -18,7 +18,7 @@ SceneBase {
         anchors.fill: parent.gameWindowAnchorItem
         Image {
             anchors.fill: parent
-            source: "../../assets/img/background/newBg.png"
+            source: "../../assets/img/background/background.png"
         }
 
 //        Image {
@@ -188,7 +188,7 @@ SceneBase {
         gameRunning = false;
         balls = 1;
         player.reset();
-        ballGenInterval = 3000;
+        ballGenInterval = 2000;
         entityManager.removeEntitiesByFilter(["ball"]);
 //        resetBackground();
     }
@@ -208,7 +208,6 @@ SceneBase {
         fadeGo.start();
     }
     function startGame() {
-        resetBalls();
         gameRunning = true;
         showGo();
         showLevelText(1);
@@ -220,5 +219,7 @@ SceneBase {
     function clearText() {
         fadeGo.stop();
         goText.opacity = 0;
+        fadeLevelText.stop();
+        levelText.opacity = 0;
     }
 }

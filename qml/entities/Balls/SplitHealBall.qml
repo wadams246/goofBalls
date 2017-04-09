@@ -30,9 +30,11 @@ HealBall {
                                                                 "score": killPoints,
                                                                 "xp": xp
                                                             });
-            removeEntity()
+            audioManager.playSound("pop");
+            removeEntity();
             spawnTwo();
         } else {
+            audioManager.playSound("bounce");
             moveBall();
         }
     }

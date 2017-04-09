@@ -6,6 +6,7 @@ EntityBase {
     entityId: "floatingText"
     entityType: "floatingText"
 
+    z: 5
     property int dmg: 0
     property int xp: 0
 

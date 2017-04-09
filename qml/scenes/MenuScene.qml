@@ -11,13 +11,14 @@ SceneBase {
     signal optionsPressed
     signal playPressed
     signal exitPressed
+    signal howToPressed
 
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
         Image {
             anchors.fill: parent
-            source: "../../assets/img/background/newBg.png"
+            source: "../../assets/img/background/background.png"
         }
         Clouds {
             id: clouds
@@ -52,10 +53,17 @@ SceneBase {
         }
         MenuButton {
             text: "HIGH SCORES"
+            lightColor: "#ff84fb"
+            darkColor: "#e501e4"
+            borderColor: "#ac00ab"
+            onClicked: scoresPressed()
+        }
+        MenuButton {
+            text: "HOW TO PLAY"
             lightColor: "#fff410"
             darkColor: "#f7991e"
             borderColor: "#a86800"
-            onClicked: scoresPressed()
+            onClicked: howToPressed()
         }
         MenuButton {
             text: "CREDITS"

@@ -181,7 +181,7 @@ EntityBase {
             if(shieldHp <= 0) {
                 shielded = false;
                 hp += shieldHp;
-                showDmg(shieldHp);
+//                showDmg(shieldHp);
                 player.score += bouncePoints;
                 healthBar.resetBar();
                 resetShield();
@@ -189,7 +189,7 @@ EntityBase {
             checkHp();
         } else {
             hp -= playerPower
-            showDmg(-playerPower);
+//            showDmg(-playerPower);
             player.score += bouncePoints
             healthBar.resetBar();
             checkHp();
@@ -248,6 +248,7 @@ EntityBase {
     }
 
     function heal(hp) {
+//        audioManager.playSound("heal");
         this.hp = (this.hp + hp) > totalHp ? totalHp : this.hp += hp;
         healthText.healAmount = healAmount = hp;
         shieldText.stopAnimation();
@@ -256,6 +257,7 @@ EntityBase {
     }
 
     function shield(sp) {
+//        audioManager.playSound("shield");
         shielded = true;
         shieldHp = shieldHp + sp > shieldMax ? shieldMax : shieldHp + sp;
         shieldIndicator.opacity = 0.5;

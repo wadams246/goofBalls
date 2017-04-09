@@ -28,8 +28,10 @@ HealerBall {
                                                                 "score": killPoints,
                                                                 "xp": xp
                                                             });
-            removeEntity()
+            audioManager.playSound("pop");
+            removeEntity();
         } else {
+            audioManager.playSound("bounce");
             moveBall();
         }
     }

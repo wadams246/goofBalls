@@ -35,7 +35,7 @@ SceneBase {
 
         anchors.centerIn: parent
 
-        // text displaying either the countdown or "tap!"
+        // text displaying either the countdown or "go!"
         Text {
             id: countDownText
             anchors.centerIn: parent

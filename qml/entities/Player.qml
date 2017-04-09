@@ -37,7 +37,7 @@ EntityBase {
     }
 
     function increasePower() {
-        power += Math.ceil(power * .15);
+        power += Math.ceil(power * .12);
     }
     function increaseHp() {
         increasePower();
@@ -53,9 +53,9 @@ EntityBase {
         level = 1;
         hp = baseHp;
         totalHp = baseHp;
-        power = basePower * 1.25;
+        power = basePower * 1.50;
         xp = 0;
-        toNextLevel = 1000;
+        toNextLevel = 1000 * .60;
         score = 0;
     }
     function getLevel() {

@@ -17,6 +17,7 @@ Item {
         color: "white"
         font.pixelSize: 20
         font.family: riffic.name
+        horizontalAlignment: Text.AlignHCenter
         style: Text.Outline
         styleColor: "#0015c5"
     }
@@ -31,5 +32,4 @@ Item {
         style: Text.Outline
         styleColor: "#0015c5"
     }
-
 }
