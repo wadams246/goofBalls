@@ -38,10 +38,13 @@ import "common"
             id: menuScene
             // listen to the button signals of the scene and change the state according to it
             onPlayPressed: {
-                system.resumeGameForObject(gameScene);
-                countDownScene.newGame = true;
-                countDownScene.resetCount();
-                window.state = "countDown";
+                if(tutorialScene.skip) {
+                    system.resumeGameForObject(gameScene);
+                    countDownScene.newGame = true;
+                    countDownScene.resetCount();
+                } else {
+                    window.state = "tutorial";
+                }
             }
             onOptionsPressed: window.state = "options"
             onScoresPressed: window.state = "scores"
@@ -75,6 +78,16 @@ import "common"
             onBackButtonPressed: {
                 system.pauseGameForObject(gameScene);
                 window.state = "subMenu";
+            }
+        }
+
+        TutorialScene {
+            id: tutorialScene
+            onSkipPressed: {
+                system.resumeGameForObject(gameScene);
+                countDownScene.newGame = true;
+                countDownScene.resetCount();
+                window.state = "countDown";
             }
         }
 
@@ -178,11 +191,17 @@ import "common"
                 PropertyChanges {target: window; activeScene: creditsScene}
             },
             State {
+                name: "tutorial"
+                PropertyChanges {target: gameScene; opacity: 1; enabled: false}
+                PropertyChanges {target: tutorialScene; opacity: 1}
+                PropertyChanges {target: window; activeScene: tutorialScene}
+                StateChangeScript {script: audioManager.stopMusic("theme");}
+            },
+            State {
                 name: "countDown"
                 PropertyChanges {target: gameScene; opacity: 1; enabled: false}
                 PropertyChanges {target: countDownScene; opacity: 1}
                 PropertyChanges {target: window; activeScene: countDownScene}
-                StateChangeScript {script: audioManager.stopMusic("theme");}
             },
             State {
                 name: "game"
