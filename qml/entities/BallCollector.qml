@@ -15,7 +15,6 @@ EntityBase {
         bodyType: Body.Static
         fixture.onBeginContact: {
             var collidedEntity = other.getBody().target
-            console.debug("Collector Hit");
             entityManager.removeEntityById(collidedEntity.entityId)
             player.hp -= collidedEntity.dmgPoints
 

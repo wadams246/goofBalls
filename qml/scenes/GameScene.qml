@@ -12,6 +12,7 @@ SceneBase {
     property int ballGenInterval: 3500
     property int lScaleMultiplier: 1
     property bool gameRunning: false
+    property int touchSize: 70
 
     // background
     Rectangle {
@@ -75,13 +76,23 @@ SceneBase {
             id: clouds
         }
     }
+    MouseArea {
+        id: touchArea
+        anchors.centerIn: gameScene
+        width: gameScene.width
+        height: gameScene.height
+        onPressed: {
+            createTouch();
+        }
+    }
+
     Wall {height:parent.height+50; anchors.right:parent.left}
     Wall {height:parent.height+50; anchors.left:parent.right}
     BallCollector {id: ballCollector; width:parent.width; anchors.top:parent.gameWindowAnchorItem.bottom; anchors.topMargin: 130}
     Ceiling {id: top; width:parent.width; anchors.bottom:parent.gameWindowAnchorItem.top; anchors.bottomMargin: 1}
 
     PhysicsWorld {
-        debugDrawVisible: false
+        debugDrawVisible: true // toggle collision box visibility
         gravity.y: 5
         z: 1000
     }
@@ -219,7 +230,12 @@ SceneBase {
     function clearText() {
         fadeGo.stop();
         goText.opacity = 0;
-        fadeLevelText.stop();
-        levelText.opacity = 0;
+    }
+    function createTouch() {
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/TouchPoint.qml"), {
+                                                            "width": touchSize,
+                                                            "x": touchArea.mouseX - touchSize / 2,
+                                                            "y": touchArea.mouseY - touchSize / 2
+                                                        });
     }
 }

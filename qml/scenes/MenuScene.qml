@@ -13,6 +13,7 @@ SceneBase {
     signal exitPressed
     signal howToPressed
 
+
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem

@@ -20,59 +20,27 @@ EntityBase {
     property int bouncePoints: baseBouncePoints + Math.ceil(baseBouncePoints * (player.level * .1))
     property int baseKillPoints: 100
     property int killPoints: baseKillPoints + Math.ceil(baseKillPoints * (player.level * .1))
-    property int startBounce: -650
-    property int tapBounce: -225
-    property int leftRight: -4
-    property int baseDmgPoints: 10
-    property int dmgPoints: baseDmgPoints + Math.ceil(baseDmgPoints * (player.level * .05))
     property int baseXp: 100
     property int xp: baseXp + Math.ceil(baseXp * (player.level * .15))
     property int spriteWidth: width
     property int spriteHeight: height
     property int healAmount: 0
-    property int shieldAmount: 0
-    property int shieldIndSize: 25
-    property int shieldHp: 0
-    property int shieldMax: 50 + Math.ceil((player.level / 25) * 50)
-    property int cat: Circle.Category1
-    property int startX: utils.generateRandomValueBetween(width, parent.width - width)
-    property int startY: parent.height + 50
-    property int startRight: utils.generateRandomValueBetween(0, 200);
-    property int startLeft: utils.generateRandomValueBetween(0, -200);
-    property int startLeftRight: startX > parent.width / 2 ? startLeft : startRight;
-    property int newRotation: 0
-    property int rotationSpeed: 5000
-    property real shieldWidth: width * shieldIndicator
-    property real shieldHeight: height * shieldIndicator
-    property real gScale: 1
-    property real lScale: 1
-    property bool shielded: true
+    property bool shielded: false
     property string ballPic: "greenBall"
     property alias healthBar: healthBar
+    property int textX: 0
+    property int textY: 0
 
-    CircleCollider {
-        id: collider
+//    Rectangle {
+//        id: shieldIndicator
 
-        radius: spriteWidth / 2
-        gravityScale: gScale
-        linearDamping: lScale
-        categories: cat
-        fixture.density: 1/3025
-
-        collidesWith: Box.Category2 | Box.Category3
-        fixture.restitution: 1
-    }
-
-    Rectangle {
-        id: shieldIndicator
-
-        height: ball.width + (shieldIndSize * (shieldHp / shieldMax))
-        width: ball.height + (shieldIndSize * (shieldHp / shieldMax))
-        radius: width / 2
-        anchors.centerIn: spriteSequence
-        color: "#4CB0FF"
-        opacity: 0
-    }
+//        height: ball.width + (shieldIndSize * (shieldHp / shieldMax))
+//        width: ball.height + (shieldIndSize * (shieldHp / shieldMax))
+//        radius: width / 2
+//        anchors.centerIn: spriteSequence
+//        color: "#4CB0FF"
+//        opacity: 0
+//    }
 
     Highlights {
         id: highLights
@@ -141,24 +109,17 @@ EntityBase {
         healAmount: ball.healAmount
     }
 
-    ShieldText {
-        id: shieldText
+//    ShieldText {
+//        id: shieldText
 
-        absoluteX: 0
-        absoluteY: -20
+//        absoluteX: 0
+//        absoluteY: -20
 
-        width: ball.width
-        height: 8
+//        width: ball.width
+//        height: 8
 
-        shieldAmount: ball.shieldAmount
-    }
-
-    Component.onCompleted: {
-        x = startX;
-        y = startY;
-        var localForwardVector = collider.body.toWorldVector(Qt.point(startLeftRight, startBounce));
-        collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
-    }
+//        shieldAmount: ball.shieldAmount
+//    }
 
     function bounce(playerPower) {
         spriteSequence.jumpTo("hit")
@@ -167,94 +128,38 @@ EntityBase {
             if(shieldHp <= 0) {
                 shielded = false;
                 hp += shieldHp;
-                showDmg(shieldHp);
                 player.score += bouncePoints;
                 healthBar.resetBar();
-                resetShield();
+//                resetShield();
             }
-            checkHp();
+//            checkHp();
         } else {
             hp -= playerPower
-            showDmg(-playerPower);
             player.score += bouncePoints
             healthBar.resetBar();
-            checkHp();
+//            checkHp();
         }
-    }
-
-    function moveBall() {
-        collider.body.linearVelocity = Qt.point(0,0);
-        var forcePoint = collider.body.toWorldVector(Qt.point(5, 0));
-        var force = collider.body.toWorldVector(Qt.point(1,1));
-        var localForwardVector = Qt.point((mouse.mouseX - 25) * leftRight, tapBounce);
-        collider.body.applyForce(force, forcePoint);
-        collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
-    }
-
-    function checkHp () {
-        if(hp < 1) {
-            killPoints += killPoints * (ball.y / parent.height);
-            player.score += killPoints;
-            calXp(xp);
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/FloatingText.qml"), {
-                                                                "x": collider.body.getWorldCenter().x - width * 0.5,
-                                                                "y": collider.body.getWorldCenter().y - height * 0.5,
-                                                                "score": ball.killPoints,
-                                                                "xp": ball.xp
-                                                            });
-            audioManager.playSound("pop");
-            removeEntity();
-        } else {
-            audioManager.playSound("bounce");
-            moveBall();
-        }
-    }
-
-    function calXp(xp) {
-        player.xp += xp;
-        if(player.xp >= player.toNextLevel) {
-            player.increaseLevel();
-            if(player.level > 4) {
-                ballGen.increaseBBChance();
-            }
-
-            player.xp = player.xp - player.toNextLevel;
-            player.toNextLevel *= 1.65;
-            parnet.changeInterval(player.level);
-        }
-    }
-
-    function resetShield() {
-        shieldIndicator.opacity = 0;
-        shieldHp = 0;
-    }
-
-    function reset() {
-        collider.body.linearVelocity = Qt.point(0,0)
     }
 
     function heal(hp) {
         this.hp = (this.hp + hp) > totalHp ? totalHp : this.hp += hp;
         healthText.healAmount = healAmount = hp;
-        shieldText.stopAnimation();
+//        shieldText.stopAnimation();
         healthText.fadeHealText();
         healthBar.resetBar();
     }
 
-    function shield(sp) {
-        shielded = true;
-        shieldHp = shieldHp + sp > shieldMax ? shieldMax : shieldHp + sp;
-        shieldIndicator.opacity = 0.5;
-        shieldAmount = sp;
-        healthText.stopAnimation();
-        shieldText.fadeShieldText(sp);
-    }
-
-    function showDmg(dmg) {
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/DmgText.qml"), {
-                                                            "x": collider.body.getWorldCenter().x - 10,
-                                                            "y": collider.body.getWorldCenter().y - 10,
-                                                            "dmg": dmg
-                                                        });
+    function checkHp () {
+        if(hp < 1) {
+            killPoints += killPoints * (ball.y / gameScene.height);
+            player.score += killPoints;
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../FloatingText.qml"), {
+                                                                "x": tutBall.x,
+                                                                "y": tutBall.y,
+                                                                "score": tutBall.killPoints,
+                                                                "xp": tutBall.xp
+                                                            });
+            tutBall.opacity = 0;
+        }
     }
 }

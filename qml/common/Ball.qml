@@ -49,6 +49,8 @@ EntityBase {
     property bool shielded: true
     property string ballPic: "greenBall"
     property alias healthBar: healthBar
+    property bool hitCd: false
+    property int touchX: 0
 
     CircleCollider {
         id: collider
@@ -59,8 +61,16 @@ EntityBase {
         categories: cat
         fixture.density: 1/3025
 
-        collidesWith: Box.Category2 | Box.Category3
+        collidesWith: Box.Category2 | Box.Category3 | Box.Category4
         fixture.restitution: 1
+        fixture.onContactChanged: {
+            var collidedEntity = other.getBody().target;
+            touchX = collidedEntity.x + collidedEntity.width / 2;
+            if(!hitCd && collidedEntity.entityType === "touch") {
+                hitCd = true;
+                bounce(player.power);
+            }
+        }
     }
 
     Rectangle {
@@ -116,19 +126,21 @@ EntityBase {
         }
     }
 
-    MouseArea {
-        id: mouse
-        anchors.centerIn: collider
-        width: parent.width + 20
-        height: parent.height + 60
-//        hoverEnabled: true
-//        onEntered: {
-//            bounce(player.power);
+//    MouseArea {
+//        id: mouse
+//        anchors.centerIn: collider
+//        width: parent.width + 20
+//        height: parent.height + 60
+////        hoverEnabled: true
+////        onEntered: {
+////            bounce(player.power);
+////        }
+//        onPressed: {
+//            if(!hitCd) {
+//                bounce(player.power)
+//            }
 //        }
-        onPressed: {
-            bounce(player.power)
-        }
-    }
+//    }
 
     HealthBar {
         id: healthBar
@@ -167,6 +179,15 @@ EntityBase {
         shieldAmount: ball.shieldAmount
     }
 
+    Timer {
+       interval: 500
+       repeat: false
+       running: hitCd
+       onTriggered: {
+           hitCd = false;
+       }
+    }
+
     Component.onCompleted: {
         x = startX;
         y = startY;
@@ -200,7 +221,7 @@ EntityBase {
         collider.body.linearVelocity = Qt.point(0,0);
         var forcePoint = collider.body.toWorldVector(Qt.point(5, 0));
         var force = collider.body.toWorldVector(Qt.point(1,1));
-        var localForwardVector = Qt.point((mouse.mouseX - 25) * leftRight, tapBounce);
+        var localForwardVector = Qt.point((touchX - collider.body.getWorldCenter().x) * leftRight, tapBounce);
         collider.body.applyForce(force, forcePoint);
         collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
     }

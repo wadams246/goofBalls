@@ -8,6 +8,11 @@ EntityBase {
 
     property int score: 0
     property int xp: 0
+    property bool run: true
+
+    width: floatingScore.width > floatingXp.width ? floatingScore.width: floatingXp.width
+    height: floatingScore.height + floatingXp.height
+    opacity: 1
 
     Text {
         id: floatingScore
@@ -16,24 +21,22 @@ EntityBase {
         styleColor: "#000000"
         font.pixelSize: 14
         text: "+" + score + "pts"
-        opacity: 1
 
-        Text {
-            id: floatingXp
-            anchors.top: floatingScore.bottom
-            color: "yellow"
-            style: Text.Outline
-            styleColor: "#000000"
-            font.pixelSize: 14
-            text: xp > 0 ? "+" + xp + "XP" : ""
-            opacity: 1
-        }
-
-        NumberAnimation on opacity {
-            to: 0
-            duration: 1500
-            onStopped: removeEntity()  // TODO change this to a pooled entity
-        }
+    }
+    Text {
+        id: floatingXp
+        anchors.top: floatingScore.bottom
+        color: "yellow"
+        style: Text.Outline
+        styleColor: "#000000"
+        font.pixelSize: 14
+        text: xp > 0 ? "+" + xp + "XP" : ""
     }
 
+    NumberAnimation on opacity {
+        to: 0
+        running: run
+        duration: 1500
+        onStopped: removeEntity()  // TODO change this to a pooled entity
+    }
 }
