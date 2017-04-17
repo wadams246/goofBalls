@@ -57,12 +57,11 @@ SceneBase {
         id: gameOverText
 
         anchors {
-            anchors.centerIn: tutorialScene
-            anchors.verticalCenterOffset: -75
-            bottom: scoreText.top
-            bottomMargin: 5
+            centerIn: tutorialScene
+            verticalCenterOffset: -75
         }
 
+        opacity: 0
         text: "GAME OVER"
         font.family: riffic.name
         font.pixelSize: 42
