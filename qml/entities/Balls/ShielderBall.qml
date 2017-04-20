@@ -10,8 +10,8 @@ Ball {
     baseXp: 450
     baseBouncePoints: 15
     baseKillPoints: 550
-    startBounce: -280
-    tapBounce: -175
+    startBounce: -320
+    tapBounce: -280
     baseDmgPoints: 20
     gScale: 1
     lScale: 0

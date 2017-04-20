@@ -19,9 +19,9 @@ EntityBase {
             player.hp -= collidedEntity.dmgPoints
 
             if(player.hp < 1) {
-                entityManager.removeEntitiesByFilter(["ball"])
-                gameScene.gameRunning = false
-                window.state = "gameOver"
+                entityManager.removeEntitiesByFilter(["ball"]);
+                gameScene.gameRunning = false;
+                window.state = "gameOver";
             }
         }
     }

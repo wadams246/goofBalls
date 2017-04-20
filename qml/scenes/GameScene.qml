@@ -2,6 +2,7 @@ import VPlay 2.0
 import QtQuick 2.0
 import "../common"
 import "../entities"
+import "../entities/Balls"
 import "../hud"
 
 SceneBase {

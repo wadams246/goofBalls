@@ -50,6 +50,7 @@ EntityBase {
     property string ballPic: "greenBall"
     property alias healthBar: healthBar
     property bool hitCd: false
+    property bool bigBall: false
     property int touchX: 0
 
     CircleCollider {
@@ -63,12 +64,12 @@ EntityBase {
 
         collidesWith: Box.Category2 | Box.Category3 | Box.Category4
         fixture.restitution: 1
-        fixture.onContactChanged: {
+        fixture.onBeginContact: {
             var collidedEntity = other.getBody().target;
             touchX = collidedEntity.x + collidedEntity.width / 2;
-            if(!hitCd && collidedEntity.entityType === "touch") {
+            if((!hitCd || bigBall) && collidedEntity.entityType === "touch") {
                 hitCd = true;
-                bounce(player.power);
+                bounce(player.power, collidedEntity);
             }
         }
     }
@@ -195,25 +196,25 @@ EntityBase {
         collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
     }
 
-    function bounce(playerPower) {
-        spriteSequence.jumpTo("hit")
+    function bounce(playerPower, touchPoint) {
+        spriteSequence.jumpTo("hit");
+        touchPoint.hitCount++;
+        touchPoint.hitPoints += bouncePoints;
         if(shielded) {
             shieldHp -= playerPower;
             if(shieldHp <= 0) {
                 shielded = false;
                 hp += shieldHp;
 //                showDmg(shieldHp);
-                player.score += bouncePoints;
                 healthBar.resetBar();
                 resetShield();
             }
-            checkHp();
+            checkHp(touchPoint);
         } else {
             hp -= playerPower
 //            showDmg(-playerPower);
-            player.score += bouncePoints
             healthBar.resetBar();
-            checkHp();
+            checkHp(touchPoint);
         }
     }
 
@@ -226,17 +227,19 @@ EntityBase {
         collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
     }
 
-    function checkHp () {
+    function checkHp (touchPoint) {
         if(hp < 1) {
-            killPoints += killPoints * (ball.y / gameScene.height);
-            player.score += killPoints;
-            calXp(xp);
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/FloatingText.qml"), {
-                                                                "x": collider.body.getWorldCenter().x - width * 0.5,
-                                                                "y": collider.body.getWorldCenter().y - height * 0.5,
-                                                                "score": ball.killPoints,
-                                                                "xp": ball.xp
-                                                            });
+            touchPoint.killPoints += killPoints * (ball.y / gameScene.height);
+            touchPoint.killCount++;
+//            player.score += killPoints;
+            calXp(xp, touchPoint);
+//            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/FloatingText.qml"), {
+//                                                                "x": collider.body.getWorldCenter().x - width * 0.5,
+//                                                                "y": collider.body.getWorldCenter().y - height * 0.5,
+//                                                                "score": ball.killPoints,
+//                                                                "xp": ball.xp
+//                                                            });
+
             audioManager.playSound("pop");
             removeEntity();
         } else {
@@ -245,7 +248,8 @@ EntityBase {
         }
     }
 
-    function calXp(xp) {
+    function calXp(xp, touchPoint) {
+        touchPoint.xp += xp; // set touchPoint XP total
         player.xp += xp;
         if(player.xp >= player.toNextLevel) {
             player.increaseLevel();

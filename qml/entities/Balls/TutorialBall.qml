@@ -6,8 +6,8 @@ import "../../entities"
 import "../../common"
 
 EntityBase {
-    id: ball
-    entityType: "ball"
+    id: tutBall
+    entityType: "tutBall"
 
     width: 60
     height: 60
@@ -48,8 +48,8 @@ EntityBase {
         absoluteX: 0
         absoluteY: 0
 
-        width: ball.width
-        height: ball.height
+        width: tutBall.width
+        height: tutBall.height
         pic: ballPic
     }
 
@@ -57,8 +57,8 @@ EntityBase {
         id: spriteSequence
 
         anchors.centerIn: parent
-        width: ball.width
-        height: ball.height
+        width: tutBall.width
+        height: tutBall.height
 
         SpriteVPlay {
           name: "idle"
@@ -103,10 +103,10 @@ EntityBase {
         absoluteX: 0
         absoluteY: 0
 
-        width: ball.width
+        width: tutBall.width
         height: 8
 
-        healAmount: ball.healAmount
+        healAmount: tutBall.healAmount
     }
 
 //    ShieldText {
@@ -151,7 +151,7 @@ EntityBase {
 
     function checkHp () {
         if(hp < 1) {
-            killPoints += killPoints * (ball.y / gameScene.height);
+            killPoints += killPoints * (tutBall.y / gameScene.height);
             player.score += killPoints;
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../FloatingText.qml"), {
                                                                 "x": tutBall.x,

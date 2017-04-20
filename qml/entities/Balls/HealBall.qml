@@ -13,7 +13,7 @@ Ball {
     baseBouncePoints: 10
     baseKillPoints: 350
     startBounce: -280
-    tapBounce: -175
+    tapBounce: -300
     baseDmgPoints: 20
     gScale: 1
     lScale: 0

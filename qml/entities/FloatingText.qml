@@ -6,9 +6,10 @@ EntityBase {
     entityId: "floatingText"
     entityType: "floatingText"
 
-    property int score: 0
-    property int xp: 0
+    property alias score: floatingScore.text
+    property alias xp: floatingXp.text
     property bool run: true
+
 
     width: floatingScore.width > floatingXp.width ? floatingScore.width: floatingXp.width
     height: floatingScore.height + floatingXp.height
@@ -16,21 +17,27 @@ EntityBase {
 
     Text {
         id: floatingScore
-        color: "#08dc05"
+        anchors.centerIn: parent
+        color: "#ffffff"
+        font.family: riffic.name
+        horizontalAlignment: Text.AlignHCenter
         style: Text.Outline
         styleColor: "#000000"
         font.pixelSize: 14
-        text: "+" + score + "pts"
+        text: ""
 
     }
     Text {
         id: floatingXp
         anchors.top: floatingScore.bottom
+        anchors.horizontalCenter: floatingScore.horizontalCenter
         color: "yellow"
+        font.family: riffic.name
+        horizontalAlignment: Text.AlignHCenter
         style: Text.Outline
         styleColor: "#000000"
         font.pixelSize: 14
-        text: xp > 0 ? "+" + xp + "XP" : ""
+        text: ""
     }
 
     NumberAnimation on opacity {

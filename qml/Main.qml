@@ -9,6 +9,9 @@ import "common"
         screenWidth: 640
         screenHeight: 960
 
+        property bool paused: false
+        property bool skipTutorial: false
+
         // You get free licenseKeys from http://v-play.net/licenseKey
         // With a licenseKey you can:
         //  * Publish your games & apps for the app stores
@@ -38,17 +41,17 @@ import "common"
             id: menuScene
             // listen to the button signals of the scene and change the state according to it
             onPlayPressed: {
-                if(tutorialScene.skip) {
-                system.resumeGameForObject(gameScene);
+                if(skipTutorial) {
                 countDownScene.newGame = true;
                 countDownScene.resetCount();
+                window.state = "countDown";
                 } else {
                     window.state = "tutorial";
                 }
             }
             onOptionsPressed: window.state = "options"
             onScoresPressed: window.state = "scores"
-            onHowToPressed: window.state = "howTo"
+            onHowToPressed: window.state = "tutorial"
             onCreditsPressed: window.state = "credits"
             onExitPressed: window.state = "exitConfirm"
 
@@ -68,14 +71,18 @@ import "common"
             id: gameScene
             onBackButtonPressed: {
                 system.pauseGameForObject(gameScene);
+                paused = true;
                 window.state = "subMenu";
             }
         }
 
         TutorialScene {
             id: tutorialScene
-            onSkipPressed: {
-                system.resumeGameForObject(gameScene);
+            onMenuPressed: window.state = "menu"
+            onSkipPressed: skipTutorial = true;
+            onPlayPressed: {
+                skipTutorial = true;
+                gameScene.resetBalls();
                 countDownScene.newGame = true;
                 countDownScene.resetCount();
                 window.state = "countDown";
@@ -85,19 +92,26 @@ import "common"
         CountDownScene {
             id: countDownScene
             onStartGame: {
-                system.resumeGameForObject(gameScene);
+                if(paused) {
+                    system.resumeGameForObject(gameScene);
+                    paused = false;
+                }
                 window.state = "game";
                 gameScene.startGame();
                 entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/Balls/GreenBall.qml"));
                 countDownScene.started = true;
             }
             onResumeGame: {
-                system.resumeGameForObject(gameScene);
+                if(paused) {
+                    system.resumeGameForObject(gameScene);
+                    paused = false;
+                }
                 window.state = "game"
                 gameScene.resumeGame();
             }
             onBackButtonPressed: {
                 system.pauseGameForObject(gameScene);
+                paused = true;
                 window.state = "subMenu";
             }
         }
@@ -135,6 +149,7 @@ import "common"
         GameOverScene {
             id: gameOverScene
             onPlayPressed: {
+                skipTutorial = true;
                 countDownScene.newGame = true;
                 gameScene.resetBalls();
                 countDownScene.resetCount();
@@ -149,6 +164,7 @@ import "common"
             text: "Really exit to main menu?"
             onConfirmPressed: {
                 window.state = "menu"
+                gameScene.resetBalls();
             }
             onCancelPressed: window.state = "subMenu"
         }
@@ -191,7 +207,13 @@ import "common"
                 PropertyChanges {target: gameScene; opacity: 1; enabled: false}
                 PropertyChanges {target: tutorialScene; opacity: 1}
                 PropertyChanges {target: window; activeScene: tutorialScene}
-                StateChangeScript {script: audioManager.stopMusic("theme");}
+                StateChangeScript {
+                    script: {
+                        audioManager.stopMusic("theme");
+                        tutorialScene.count = -1;
+                        tutorialScene.next();
+                    }
+                }
             },
             State {
                 name: "countDown"
@@ -208,11 +230,6 @@ import "common"
                 name: "scores"
                 PropertyChanges {target: scoresScene; opacity: 1}
                 PropertyChanges {target: window; activeScene: scoresScene}
-            },
-            State {
-                name: "howTo"
-                PropertyChanges {target: howToScene; opacity: 1}
-                PropertyChanges {target: window; activeScene: howToScene}
             },
             State {
                 name: "subMenu"

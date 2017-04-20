@@ -7,6 +7,7 @@ EntityBase {
     entityType: "ballGenerator"
 
     property int rand: 0
+    property int bigBallCount: 0
     property int bigBallChance: 3
     property int powerUpChance: 0
     property variant balls: ["BlueBall", "RedBall", "SpeedBall", "HealBall", "ShieldBall",
@@ -79,8 +80,10 @@ EntityBase {
         var temp = 0;
         var level = (lvl - 5 > (percentages.length - 1)) ? percentages.length - 1 : lvl - 5;
 
-        if(rand < bigBallChance) {
-            entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/BigBall.qml"));
+        if(rand < bigBallChance && bigBallCount < 2) {
+            var bigBall = entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/Balls/BigBall.qml"));
+            entityManager.getEntityById(bigBall).bigBallKilled.connect(removeBigBall);
+            bigBallCount++;
         }
 
         for(var i = 0; i < percentages.length; i++) {
@@ -95,7 +98,6 @@ EntityBase {
 
     function increaseBBChance() {
         bigBallChance = bigBallChance < 10 ? bigBallChance += 1 : 10
-        console.log("BIGBALL CHANCE: ", bigBallChance);
     }
 
     function genPowerUp() {
@@ -107,5 +109,9 @@ EntityBase {
             powerUpChance += 1;
         }
 
+    }
+
+    function removeBigBall() {
+        bigBallCount--;
     }
 }
