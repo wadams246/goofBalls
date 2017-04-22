@@ -8,7 +8,7 @@ import "../../common"
 Ball {
     id: shieldBall
 
-    baseHp: 200
+    baseHp: 100
     baseXp: 325
     baseBouncePoints: 15
     baseKillPoints: 375
@@ -47,7 +47,7 @@ Ball {
                 coolDown = false;
                 shieldBall.shield(shieldPower);
                 coolDown = true;
-                coolDownTime = 5;
+                coolDownTime = 7;
                 coolDownBar.resetCD();
             }
         }

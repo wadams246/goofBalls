@@ -6,7 +6,7 @@ import "../"
 Ball {
     id: healerBall
 
-    baseHp: 300
+    baseHp: 250
     baseXp: 400
     baseBouncePoints: 15
     baseKillPoints: 500

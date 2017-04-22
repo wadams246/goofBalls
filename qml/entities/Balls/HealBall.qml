@@ -8,11 +8,11 @@ import "../../common"
 Ball {
     id: healBall
 
-    baseHp: 250
+    baseHp: 100
     baseXp: 275
     baseBouncePoints: 10
     baseKillPoints: 350
-    startBounce: -280
+    startBounce: -300
     tapBounce: -300
     baseDmgPoints: 20
     gScale: 1
@@ -22,7 +22,7 @@ Ball {
 
     property int coolDownTime: 2
     property int currentLevel: 1
-    property int healPower: 50 + Math.ceil((player.level / 25) * 50);
+    property int healPower: 30 + Math.ceil((player.level / 25) * 50);
     property bool coolDown: true
 
     CoolDownBar {
@@ -45,7 +45,7 @@ Ball {
                 coolDown = false;
                 healBall.heal(healPower);
                 coolDown = true;
-                coolDownTime = 5
+                coolDownTime = 7;
                 coolDownBar.resetCD();
             }
         }

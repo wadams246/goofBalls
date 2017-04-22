@@ -5,7 +5,7 @@ import "../../common"
 Ball {
     id: splitBall
 
-    baseHp: 400
+    baseHp: 300
     baseXp: 500
     baseBouncePoints: 15
     baseKillPoints: 600

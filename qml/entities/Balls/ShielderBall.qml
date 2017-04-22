@@ -6,7 +6,7 @@ import "../../common"
 Ball {
     id: shielderBall
 
-    baseHp: 325
+    baseHp: 250
     baseXp: 450
     baseBouncePoints: 15
     baseKillPoints: 550

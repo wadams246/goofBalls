@@ -8,7 +8,7 @@ import "../../common"
 ShieldBall {
     id: splitShieldBall
 
-    baseHp: 450
+    baseHp: 200
     baseXp: 750
     baseBouncePoints: 30
     baseKillPoints: 1250
