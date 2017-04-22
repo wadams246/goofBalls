@@ -166,6 +166,11 @@ SceneBase {
         }
     }
 
+    PopName {
+        id: popName
+        anchors.centerIn: parent
+    }
+
     Timer {
         interval: ballGenInterval
         running: gameRunning == true && window.state === "game"
