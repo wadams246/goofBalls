@@ -9,12 +9,12 @@ Ball {
     baseXp: 750
     bouncePoints: 5
     killPoints: 100
-    startBounce: -280
-    tapBounce: -175
+    startBounce: -350
+    tapBounce: -300
     baseDmgPoints: 65
     gScale: 1
     lScale: 0
-    ballPic: "darkGrayBall"
+    ballPic: "clearBall"
     cat: Circle.Category4
 
     property int haste: Math.floor(((player.level - 8) / 2));

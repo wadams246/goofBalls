@@ -24,8 +24,8 @@ EntityBase {
             color: "#0099ff"
             lineWidth: 3
             points: [
-                {"x": ball !== null ? ballCenter.x : 0, "y": ball !== null ? ballCenter.y : 0},
-                {"x": entity !== null ? entityCenter.x : 0, "y": entity !== null ? entityCenter.y : 0}
+                {"x": ball !== null && ballCenter.x !== null ? ballCenter.x : 0, "y": ball !== null && ballCenter.y !== null ? ballCenter.y : 0},
+                {"x": entity !== null && entityCenter.x !== null ? entityCenter.x : 0, "y": entity !== null && entityCenter.y !== null ? entityCenter.y : 0}
             ]
         }
 
@@ -42,7 +42,7 @@ EntityBase {
     // I'm not sure how this is going to effect performance
     Timer {
         interval: 1
-        running: nonRotatedItem.opacity > 0
+        running: nonRotatedItem.opacity > 0 && ball !== null && entity !== null
         onTriggered:  {
             ballCenter = mapFromItem(ball, ball.width * 0.5, ball.height * 0.5)
             entityCenter = mapFromItem(entity, entity.width * 0.5, entity.height * 0.5)

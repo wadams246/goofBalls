@@ -45,7 +45,7 @@ EntityBase {
     // I'm not sure how this is going to effect performance
     Timer {
         interval: 1
-        running: nonRotatedItem.opacity > 0
+        running: nonRotatedItem.opacity > 0 && ball !== null && entity !== null
         onTriggered:  {
             ballCenter = mapFromItem(ball, ball.width * 0.5, ball.height * 0.5)
             entityCenter = mapFromItem(entity, entity.width * 0.5, entity.height * 0.5)

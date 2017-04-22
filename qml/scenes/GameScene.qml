@@ -95,7 +95,7 @@ SceneBase {
     Ceiling {id: top; width:parent.width; anchors.bottom:parent.gameWindowAnchorItem.top; anchors.bottomMargin: 1}
 
     PhysicsWorld {
-        debugDrawVisible: true // toggle collision box visibility
+        debugDrawVisible: false // toggle collision box visibility
         gravity.y: 5
         z: 1000
     }

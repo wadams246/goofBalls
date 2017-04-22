@@ -99,10 +99,6 @@ import "common"
                 window.state = "game";
                 gameScene.startGame();
                 entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/Balls/GreenBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/Balls/RedBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/Balls/YellowBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/Balls/HealBall.qml"));
-                entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/Balls/ShieldBall.qml"));
                 countDownScene.started = true;
             }
             onResumeGame: {

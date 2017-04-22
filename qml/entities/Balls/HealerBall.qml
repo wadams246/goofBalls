@@ -10,7 +10,7 @@ Ball {
     baseXp: 400
     baseBouncePoints: 15
     baseKillPoints: 500
-    startBounce: -280
+    startBounce: -350
     tapBounce: -300
     baseDmgPoints: 25
     gScale: 1
@@ -52,7 +52,6 @@ Ball {
         y: healRange.y
         color: "white"
         opacity: .1
-
     }
 
     CoolDownBar {

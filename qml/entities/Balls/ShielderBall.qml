@@ -10,7 +10,7 @@ Ball {
     baseXp: 450
     baseBouncePoints: 15
     baseKillPoints: 550
-    startBounce: -320
+    startBounce: -350
     tapBounce: -280
     baseDmgPoints: 20
     gScale: 1
@@ -35,7 +35,7 @@ Ball {
         fixture.onContactChanged: {
             var collidedEntity = other.getBody().target
             if(!coolDown && collidedEntity.entityType === "ball") {
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../ShieldBolt.qml"), {"ball": shielderBall, "entity": collidedEntity});
+                var createdEntity = entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../ShieldBolt.qml"), {"ball": shielderBall, "entity": collidedEntity});
                 collidedEntity.shield(shieldPower);
                 coolDown = true;
                 coolDownTime = 5
