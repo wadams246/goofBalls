@@ -18,6 +18,8 @@ SceneBase {
     // background
     Rectangle {
         anchors.fill: parent.gameWindowAnchorItem
+        height: parent.gameWindowAnchorItem.height
+        width: parent.gameWindowAnchorItem.width
         Image {
             anchors.fill: parent
             source: "../../assets/img/background/background.png"
@@ -87,8 +89,8 @@ SceneBase {
         }
     }
 
-    Wall {height:parent.height+50; anchors.right:parent.left}
-    Wall {height:parent.height+50; anchors.left:parent.right}
+    Wall {height:parent.height+50; anchors.right:parent.gameWindowAnchorItem.left}
+    Wall {height:parent.height+50; anchors.left:parent.gameWindowAnchorItem.right}
     BallCollector {id: ballCollector; width:parent.width; anchors.top:parent.gameWindowAnchorItem.bottom; anchors.topMargin: 130}
     Ceiling {id: top; width:parent.width; anchors.bottom:parent.gameWindowAnchorItem.top; anchors.bottomMargin: 1}
 

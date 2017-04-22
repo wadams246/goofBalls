@@ -25,10 +25,9 @@ EntityBase {
         repeat: false
         running: true
         onTriggered: {
-            console.debug("TOUCH HIT COUNT: ", hitCount);
+            var totalHitPoints = hitPoints * hitCount;
+            var totalKillPoints = killPoints * killCount;
             if(killPoints > 0) {
-                var totalKillPoints = killPoints * killCount;
-                player.score += totalKillPoints;
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/FloatingText.qml"), {
                                                                     "x": x,
                                                                     "y": y,
@@ -36,7 +35,7 @@ EntityBase {
                                                                     "xp": xp + "xp"
                                                                 });
             }
-
+            player.score += (totalHitPoints + totalKillPoints);
             removeEntity();
         }
     }

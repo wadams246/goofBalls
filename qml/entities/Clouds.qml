@@ -6,24 +6,24 @@ Item {
     id: clouds
 
     CloudSmall {
-        xPos: menuScene.width * .15
+        xPos: menuScene.gameWindowAnchorItem.width * .15
     }
     CloudSmall {
-        xPos: menuScene.width * .5
+        xPos: menuScene.gameWindowAnchorItem.width * .5
     }
     CloudSmall {
-        xPos: menuScene.width
+        xPos: menuScene.gameWindowAnchorItem.width
     }
     CloudSmall {
-        xPos: menuScene.width * 1.5
+        xPos: menuScene.gameWindowAnchorItem.width * 1.5
     }
     CloudBig {
-        xPos: menuScene.width * .30
+        xPos: menuScene.gameWindowAnchorItem.width * .30
     }
     CloudBig {
-        xPos: menuScene.width * .70
+        xPos: menuScene.gameWindowAnchorItem.width * .70
     }
     CloudBig {
-        xPos: menuScene.width * 1.15
+        xPos: menuScene.gameWindowAnchorItem.width * 1.15
     }
 }

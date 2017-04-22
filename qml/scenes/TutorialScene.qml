@@ -46,6 +46,7 @@ SceneBase {
 
     FloatingText {
         id: floatingText
+        entityId: "floatingTutText"
         height: 60
         anchors.centerIn: tutorialScene
         opacity: 0
@@ -401,15 +402,15 @@ SceneBase {
     }
 
     function moveButtonsBottom() {
-        buttonsContainer.width = tutorialScene.width - 20
+        buttonsContainer.width = tutorialScene.width - 20;
         buttonsContainer.anchors.top = undefined;
         buttonsContainer.anchors.topMargin = undefined;
-        buttonsContainer.anchors.bottom = tutorialScene.bottom;
+        buttonsContainer.anchors.bottom = tutorialScene.gameWindowAnchorItem.bottom;
         buttonsContainer.anchors.bottomMargin = 10;
     }
 
     function moveButtonsTop() {
-        if(count === 1) {
+        if(count === 0) {
             nextButton.text = "NEXT";
             exitButton.text = "SKIP";
         } else {
@@ -451,7 +452,7 @@ SceneBase {
         ballSpawn.opacity = 1;
         tutBall.opacity = 1;
         tutBall.anchors.horizontalCenter =  tutorialScene.horizontalCenter;
-        tutBall.anchors.bottom = tutorialScene.bottom;
+        tutBall.anchors.bottom = tutorialScene.gameWindowAnchorItem.bottom;
     }
 
     function showBallBounce() {
@@ -497,7 +498,7 @@ SceneBase {
         tutBall.opacity = 1;
         tutBall.anchors.centerIn = undefined;
         tutBall.anchors.verticalCenter = undefined;
-        tutBall.anchors.top = tutorialScene.top;
+        tutBall.anchors.top = tutorialScene.gameWindowAnchorItem.top;
         tutBall.anchors.topMargin = 15
         tutBall.anchors.horizontalCenter = tutorialScene.horizontalCenter;
         healDelayCount = 9;

@@ -25,7 +25,7 @@ Item {
        velocity: -10
        running: true
        onLimitReached: {
-         cloudImg.x = menuScene.width
+         cloudImg.x = menuScene.gameWindowAnchorItem.width
          cloudImg.y = Math.random() * 40
        }
      }
