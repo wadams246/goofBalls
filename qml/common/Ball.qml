@@ -229,8 +229,8 @@ EntityBase {
 
     function checkHp (touchPoint) {
         if(hp < 1) {
-            touchPoint.killPoints += killPoints * (ball.y / gameScene.height);
-            touchPoint.killCount++;
+            touchPoint.popPoints += killPoints * (ball.y / gameScene.height);
+            touchPoint.popCount++;
 //            player.score += killPoints;
             calXp(xp, touchPoint);
 //            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/FloatingText.qml"), {

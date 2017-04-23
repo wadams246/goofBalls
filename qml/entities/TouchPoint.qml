@@ -3,14 +3,16 @@ import QtQuick 2.0
 
 EntityBase {
     id: touchPoint
+    entityId: "touchPoint"
     entityType: "touch"
 
     width: 50
 
+    signal multiPop(int count)
     property int hitCount: 0
-    property int killCount: 0
+    property int popCount: 0
     property int hitPoints: 0
-    property int killPoints: 0
+    property int popPoints: 0
     property int xp: 0
 
     CircleCollider {
@@ -21,21 +23,24 @@ EntityBase {
     }
 
     Timer {
-        interval: 50
+        interval: 10
         repeat: false
         running: true
         onTriggered: {
             var totalHitPoints = hitPoints * hitCount;
-            var totalKillPoints = killPoints * killCount;
-            if(killPoints > 0) {
+            var totalPopPoints = popPoints * popCount;
+            if(popPoints > 0) {
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/FloatingText.qml"), {
                                                                     "x": x,
                                                                     "y": y,
-                                                                    "score": killCount > 1 ? totalKillPoints + "pts(" + killCount + "x)": totalKillPoints + "pts",
+                                                                    "score": popCount > 1 ? totalPopPoints + "pts(" + popCount + "x)": totalPopPoints + "pts",
                                                                     "xp": xp + "xp"
                                                                 });
             }
-            player.score += (totalHitPoints + totalKillPoints);
+            if(popCount > 1) {
+                multiPop(popCount);
+            }
+            player.score += (totalHitPoints + totalPopPoints);
             removeEntity();
         }
     }

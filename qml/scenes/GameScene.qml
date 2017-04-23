@@ -95,7 +95,7 @@ SceneBase {
     Ceiling {id: top; width:parent.width; anchors.bottom:parent.gameWindowAnchorItem.top; anchors.bottomMargin: 1}
 
     PhysicsWorld {
-        debugDrawVisible: false // toggle collision box visibility
+        debugDrawVisible: true // toggle collision box visibility
         gravity.y: 5
         z: 1000
     }
@@ -240,10 +240,16 @@ SceneBase {
         goText.opacity = 0;
     }
     function createTouch() {
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/TouchPoint.qml"), {
-                                                            "width": touchSize,
-                                                            "x": touchArea.mouseX - touchSize / 2,
-                                                            "y": touchArea.mouseY - touchSize / 2
-                                                        });
+        var touch = entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/TouchPoint.qml"), {
+                                                                        "width": touchSize,
+                                                                        "x": touchArea.mouseX - touchSize / 2,
+                                                                        "y": touchArea.mouseY - touchSize / 2
+        });
+        touch = entityManager.getEntityById(touch);
+        touch.multiPop.connect(showPopName);
+    }
+
+    function showPopName(count) {
+        popName.showName(count);
     }
 }

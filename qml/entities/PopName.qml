@@ -43,4 +43,11 @@ EntityBase {
         duration: 1500
 //        onStopped: removeEntity()  // TODO change this to a pooled entity
     }
+
+    function showName(count) {
+        popNameAnim.stop();
+        popName.opacity = 1;
+        popName.popCount = count;
+        popNameAnim.start();
+    }
 }
